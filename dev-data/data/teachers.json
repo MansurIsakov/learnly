@@ -1,0 +1,220 @@
+[
+  {
+    "name": "Yugay Olga",
+    "department": "Computing Department",
+    "email": "oyugay@wiut.uz",
+    "position": "Lecturer",
+    "modules": ["Computer Science Fundamentals"],
+    "reviews": [
+      " I have been learning Computer Science Fundamentals from Olga Yugay this summer and it has been a great experience. She is a very thoughtful teacher who puts a lot of thought into how she presents the material. Her lessons were engaging, useful, and she was very patient with everyone in class always encouraging her students to try. I would highly recommend her to anyone interested in learning Computer Science Fundamentals.",
+      "Olga Yugay manner of teaching is so wonderful and refreshing!! She's patient and supportive, but really knows how to motivate her students. Sh's great at building confidence and keeping lessons fun and engaging through a variety of activities that improve conversation, writing, and reading skills.",
+      "Olga Yugay has an incredible gift for teaching. Her classes seem like play but there is a lot of serious learning going on. I was already an intermediate/advanced student, but I learned something from every class, plus had a lot of fun doing it!"
+    ]
+  },
+  {
+    "name": "Primkulova Shirin",
+    "department": "Computing Department",
+    "email": "sprimkulova@wiut.uz",
+    "position": "Course Leader",
+    "modules": ["Internet of Things"],
+    "reviews": []
+  },
+  {
+    "name": "Shahbazkia Hamid Reza",
+    "department": "Computing Department",
+    "email": "h.r.shahbazkia@wiut.uz",
+    "position": "Associate Professor - CD",
+    "modules": [
+      "Database Systems Development",
+      "Machine Learning and Data Analytics"
+    ],
+    "reviews": []
+  },
+  {
+    "name": "Liayakath Ali Khan Subair Ali",
+    "department": "Computing Department",
+    "email": "sliayakath@wiut.uz",
+    "position": "Senior Lecturer",
+    "modules": ["Web Technology"],
+    "reviews": []
+  },
+  {
+    "name": "Avazkhan Khalikov",
+    "department": "Computing Department",
+    "email": "akhalikov@wiut.uz",
+    "position": "Senior Lecturer",
+    "modules": ["Object Oriented Programming"],
+    "reviews": []
+  },
+  {
+    "name": "Kuznetsov Vasiliy",
+    "department": "Computing Department",
+    "email": "vkuznetsov@wiut.uz",
+    "position": "Senior Lecturer",
+    "modules": ["Fundametals of Programming", "Network Operations"],
+    "reviews": []
+  },
+  {
+    "name": "Pochitaev Dmitriy",
+    "department": "Computing Department",
+    "email": "dpochitaev@wiut.uz",
+    "position": "Senior Lecturer",
+    "modules": ["Database Systems Development"],
+    "reviews": []
+  },
+  {
+    "name": "Abduvaliev Said",
+    "department": "Computing Department",
+    "email": "sabduvaliev@wiut.uz",
+    "position": "Lecturer",
+    "modules": ["Web Technology"],
+    "reviews": []
+  },
+  {
+    "name": "Karimov Jakhongir",
+    "department": "Computing Department",
+    "email": "jkarimov@wiut.uz",
+    "position": "Associate Lecturer",
+    "modules": ["Developing Digital Enterprise"],
+    "reviews": []
+  },
+  {
+    "name": "Valeriya Tsoy",
+    "department": "Computing Department",
+    "email": "vtsoy@wiut.uz",
+    "position": "Associate Lecturer",
+    "modules": ["Mobile Applications Development"],
+    "reviews": []
+  },
+  {
+    "name": "Khoshimkhujaev Bunyod",
+    "department": "Computing Department",
+    "email": "bkhoshimkhujaev@wiut.uz",
+    "position": "Associate Lecturer",
+    "modules": ["Object Oriented Programming"],
+    "reviews": []
+  },
+  {
+    "name": "Gayrat Suyunov",
+    "department": "Economics Department",
+    "email": "gsuyunov2@wiut.uz",
+    "position": "Associate Lecturer",
+    "modules": ["Introduction to Statistics and Data Science"],
+    "reviews": []
+  },
+  {
+    "name": "Ismailov Alisher",
+    "department": "Management and Marketing Department",
+    "email": "a.ismailov@wiut.uz",
+    "position": "Lecturer",
+    "modules": [
+      "Introduction to Management and Organisational Behaviour",
+      "New Venture Creation"
+    ],
+    "reviews": []
+  },
+  {
+    "name": "Gulnaz Bektemirova",
+    "department": "Management and Marketing Department",
+    "email": "gbektemirova@wiut.uz",
+    "position": "Lecturer",
+    "modules": ["Introduction to Management and Organisational Behaviour"],
+    "reviews": []
+  },
+  {
+    "name": "Athar Hameed Butt",
+    "department": "Management and Marketing Department",
+    "email": "ahameed@wiut.uz",
+    "position": "Lecturer",
+    "modules": ["Introduction to Management and Organisational Behaviour"],
+    "reviews": []
+  },
+  {
+    "name": "Iroda Komilova",
+    "department": "Management and Marketing Department",
+    "email": "ikomilova@wiut.uz",
+    "position": "Senior Lecturer",
+    "modules": ["Project Management"],
+    "reviews": []
+  },
+  {
+    "name": "Islamov Ulugbek",
+    "department": "Management and Marketing Department",
+    "email": "uislamov@wiut.uz",
+    "position": "Senior Lecturer",
+    "modules": ["Project Management"],
+    "reviews": []
+  },
+  {
+    "name": "Jakhongir Karimov",
+    "department": "Computer Department",
+    "email": "jkarimov@wiut.uz",
+    "position": "Lecturer",
+    "modules": ["Developing Digital Enterprise"],
+    "reviews": []
+  },
+  {
+    "name": "Shodiyabegim Bakhtiyorzoda",
+    "department": "Computer Department",
+    "email": "sbakhtiyorzoda@wiut.uz",
+    "position": "Lecturer",
+    "modules": ["Business Information Systems Project"],
+    "reviews": []
+  },
+  {
+    "name": "Isomiddin Abdunabiev",
+    "department": "Computer Department",
+    "email": "iabdunabiev@wiut.uz",
+    "position": "Lecturer",
+    "modules": ["Distributed Systems and Cloud Computing"],
+    "reviews": []
+  },
+  {
+    "name": "Prabha Kiran",
+    "department": "Management and Marketing Department",
+    "email": "pkiran@wiut.uz",
+    "position": "Head of Management and Marketing Department",
+    "modules": ["Digital Marketing"],
+    "reviews": []
+  },
+  {
+    "name": "Nasiba Mukhtorova",
+    "department": "Management and Marketing Department",
+    "email": "nmukhtorova@wiut.uz",
+    "position": "Lecturer",
+    "modules": ["Digital Marketing"],
+    "reviews": []
+  },
+  {
+    "name": "Farhod Karimov",
+    "department": "Management and Marketing Department",
+    "email": "fkarimov@wiut.uz",
+    "position": "Lecturer",
+    "modules": ["Introduction to Management and Organisational Behaviour"],
+    "reviews": []
+  },
+  {
+    "name": "Timur Martinez Mukimov",
+    "department": "Computer Department",
+    "email": "tmartinez@wiut.uz",
+    "position": "Associate Lecturer",
+    "modules": ["Fundametals of Programming"],
+    "reviews": []
+  },
+  {
+    "name": "Olmas Isakov",
+    "department": "Economics Department",
+    "email": "o.isakov@wiut.uz",
+    "position": "Lecturer",
+    "modules": ["Introduction to Statistics and Data Science"],
+    "reviews": []
+  },
+  {
+    "name": "Zarrukh Rakhimov",
+    "department": "Economics Department",
+    "email": "zrakhimov@wiut.uz",
+    "position": "Lecturer",
+    "modules": ["Introduction to Statistics and Data Science"],
+    "reviews": []
+  }
+]

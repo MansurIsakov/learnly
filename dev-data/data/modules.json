@@ -1,0 +1,16 @@
+[
+  {
+    "courseCode": "5BUIS015C-n",
+    "courseName": "Game Development",
+    "teachers": ["Akmal Salikhov"],
+    "type": "optional",
+    "classes": [
+      {
+        "time": "10:00-11:30",
+        "venue": "TBA",
+        "tutor": "Akmal Salikhov",
+        "type": "Lecture"
+      }
+    ]
+  }
+]

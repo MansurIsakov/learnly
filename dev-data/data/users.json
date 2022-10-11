@@ -1,0 +1,30 @@
+[
+  {
+    "_id": "5c8a1d5b0190b214360dc057",
+    "email": "regular@gmail.com",
+    "password": "$2a$12$Q0grHjH9PXc6SxivC8m12.2mZJ9BbKcgFpwSG4Y1ZEII8HJVzWeyS",
+    "role": "user",
+    "firstName": "Regular",
+    "lastName": "User",
+    "gender": "male",
+    "dob": "2002-11-20",
+    "course": "BIS",
+    "level": 5,
+    "schedule": [],
+    "active": true
+  },
+  {
+    "_id": "5c8a1d5b0190b214360dc058",
+    "email": "admin@gmail.com",
+    "password": "$2a$12$Q0grHjH9PXc6SxivC8m12.2mZJ9BcKcgFpwSG4Y1ZEII8HJVzWeyS",
+    "role": "admin",
+    "firstName": "Admin",
+    "lastName": "Admin",
+    "gender": "female",
+    "dob": "2002-11-28",
+    "course": "BIS",
+    "level": 4,
+    "schedule": [],
+    "active": true
+  }
+]
