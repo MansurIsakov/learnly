@@ -6,10 +6,160 @@
     "type": "optional",
     "classes": [
       {
-        "time": "10:00-11:30",
-        "venue": "TBA",
+        "time": "16",
+        "day": "wednesday",
+        "venue": "SHB305",
         "tutor": "Akmal Salikhov",
-        "type": "Lecture"
+        "type": "seminar",
+        "groups": ["5BABM4", "5BIS2", "6BIS4", "6BIS5"]
+      },
+      {
+        "time": "13",
+        "day": "thursday",
+        "venue": "SHB304",
+        "tutor": "Akmal Salikhov",
+        "type": "seminar",
+        "groups": ["5BIS1", "5BIS4"]
+      },
+      {
+        "time": "13",
+        "day": "friday",
+        "venue": "SHB305",
+        "tutor": "Akmal Salikhov",
+        "type": "seminar",
+        "groups": ["5BIS5", "5BMFin2", "5Fin2", "6BIS3"]
+      },
+      {
+        "time": "10",
+        "day": "friday",
+        "venue": "SHB206",
+        "tutor": "Akmal Salikhov",
+        "type": "lecture",
+        "groups": [
+          "5BABM4",
+          "5BIS1",
+          "5BIS2",
+          "5BIS4",
+          "5BIS5",
+          "5BMFin2",
+          "5BMMar6",
+          "5Fin2",
+          "6BIS3",
+          "6BIS4",
+          "6BIS5"
+        ]
+      }
+    ]
+  },
+  {
+    "courseCode": "5BUIS012C-n",
+    "courseName": "Mobile Applications Development",
+    "teachers": ["Valeriya Tsoy"],
+    "type": "optional",
+    "classes": [
+      {
+        "time": "16",
+        "day": "monday",
+        "venue": "SHB303",
+        "tutor": "Valeriya Tsoy",
+        "type": "seminar",
+        "groups": ["5BIS2"]
+      },
+      {
+        "time": "11",
+        "day": "tuesday",
+        "venue": "SHB305",
+        "tutor": "Valeriya Tsoy",
+        "type": "seminar",
+        "groups": ["5BIS1", "5BIS5"]
+      },
+      {
+        "time": "13",
+        "day": "tuesday",
+        "venue": "SHB305",
+        "tutor": "Valeriya Tsoy",
+        "type": "seminar",
+        "groups": ["5BIS4"]
+      },
+      {
+        "time": "11",
+        "day": "thursday",
+        "venue": "SHB206",
+        "tutor": "Valeriya Tsoy",
+        "type": "lecture",
+        "groups": ["5BIS1", "5BIS2", "5BIS3", "5BIS4", "5BIS5"]
+      },
+      {
+        "time": "16",
+        "day": "friday",
+        "venue": "SHB304",
+        "tutor": "Valeriya Tsoy",
+        "type": "seminar",
+        "groups": ["5BIS3"]
+      }
+    ]
+  },
+  {
+    "courseCode": "5COSC018C-n",
+    "courseName": "Object Oriented Programming",
+    "teachers": ["Avazkhan Khalikov", "Bunyod Khoshimkhujaev"],
+    "type": "core",
+    "classes": [
+      {
+        "time": "9",
+        "day": "monday",
+        "venue": "Harvard306",
+        "tutor": "Avazkhan Khalikov",
+        "type": "lecture",
+        "groups": ["5BIS1", "5BIS4", "5BIS5", "6BIS3"]
+      },
+      {
+        "time": "9",
+        "day": "tuesday",
+        "venue": "SHB206",
+        "tutor": "Avazkhan Khalikov",
+        "type": "lecture",
+        "groups": ["5BIS2", "5BIS3", "6BIS4"]
+      },
+      {
+        "time": "11",
+        "day": "monday",
+        "venue": "ATB214",
+        "tutor": "Bunyod Khoshimkhujaev",
+        "type": "seminar",
+        "groups": ["5BIS5"]
+      },
+      {
+        "time": "14",
+        "day": "wednesday",
+        "venue": "SHB408",
+        "tutor": "Bunyod Khoshimkhujaev",
+        "type": "seminar",
+        "groups": ["5BIS4"]
+      },
+      {
+        "time": "9",
+        "day": "thursday",
+        "venue": "SHB305",
+        "tutor": "Bunyod Khoshimkhujaev",
+        "type": "seminar",
+        "groups": ["5BIS2", "6BIS3", "6BIS4"]
+      },
+      {
+        "time": "14",
+        "day": "thursday",
+        "venue": "SHB305",
+        "tutor": "Bunyod Khoshimkhujaev",
+        "type": "seminar",
+        "groups": ["5BIS3"]
+      },
+      {
+        "time": "16",
+        "day": "friday",
+        "venue": "SHB305",
+        "tutor": "Bunyod Khoshimkhujaev",
+        "type": "seminar",
+        "groups": ["5BIS1"]
       }
     ]
   }
