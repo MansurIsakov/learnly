@@ -1,5 +1,7 @@
 [
   {
+    "courseLevel": 5,
+    "course": ["BIS"],
     "courseCode": "5BUIS015C-n",
     "courseName": "Game Development",
     "teachers": ["Akmal Salikhov"],
@@ -52,6 +54,8 @@
     ]
   },
   {
+    "courseLevel": 5,
+    "course": ["BIS"],
     "courseCode": "5BUIS012C-n",
     "courseName": "Mobile Applications Development",
     "teachers": ["Valeriya Tsoy"],
@@ -100,6 +104,8 @@
     ]
   },
   {
+    "courseLevel": 5,
+    "course": ["BIS"],
     "courseCode": "5COSC018C-n",
     "courseName": "Object Oriented Programming",
     "teachers": ["Avazkhan Khalikov", "Bunyod Khoshimkhujaev"],
@@ -160,6 +166,456 @@
         "tutor": "Bunyod Khoshimkhujaev",
         "type": "seminar",
         "groups": ["5BIS1"]
+      }
+    ]
+  },
+  {
+    "courseLevel": 5,
+    "course": ["BIS"],
+    "courseCode": "5BUIS009C-n",
+    "courseName": "Database Systems Development",
+    "teachers": ["Dmitriy Pochitaev", "Shahbazkia Hamid Reza"],
+    "type": "core",
+    "classes": [
+      {
+        "time": "11",
+        "day": "monday",
+        "venue": "IB202",
+        "tutor": "Shahbazkia Hamid Reza",
+        "type": "seminar",
+        "groups": ["5BIS4"]
+      },
+      {
+        "time": "9",
+        "day": "tuesday",
+        "venue": "IB209",
+        "tutor": "Shahbazkia Hamid Reza",
+        "type": "seminar",
+        "groups": ["5BIS5"]
+      },
+      {
+        "time": "11",
+        "day": "monday",
+        "venue": "IB215",
+        "tutor": "Dmitriy Pochitaev",
+        "type": "seminar",
+        "groups": ["5BIS1"]
+      },
+      {
+        "time": "14",
+        "day": "monday",
+        "venue": "SHB305",
+        "tutor": "Dmitriy Pochitaev",
+        "type": "seminar",
+        "groups": ["5BIS2"]
+      },
+      {
+        "time": "16",
+        "day": "wednesday",
+        "venue": "SHB408",
+        "tutor": "Dmitriy Pochitaev",
+        "type": "seminar",
+        "groups": ["5BIS3"]
+      }
+    ]
+  },
+  {
+    "courseLevel": 5,
+    "course": ["BIS"],
+    "courseCode": "5BUIS013C-n",
+    "courseName": "Network Operations",
+    "teachers": ["Vasiliy Kuznetsov"],
+    "type": "optional",
+    "classes": [
+      {
+        "time": "9",
+        "day": "tuesday",
+        "venue": "IB306",
+        "tutor": "Vasiliy Kuznetsov",
+        "type": "lecture",
+        "groups": ["5BIS1", "5BIS4", "6BIS5"]
+      },
+      {
+        "time": "16",
+        "day": "wednesday",
+        "venue": "SHB303",
+        "tutor": "Vasiliy Kuznetsov",
+        "type": "seminar",
+        "groups": ["5BIS1", "5BIS4", "6BIS5"]
+      }
+    ]
+  },
+  {
+    "courseLevel": 4,
+    "course": ["BIS"],
+    "courseCode": "4BUIS008C",
+    "courseName": "Fundamentals of Programming",
+    "teachers": ["Vasiliy Kuznetsov", "Timur Martinez Mukimov"],
+    "type": "core",
+    "classes": [
+      {
+        "time": "9",
+        "day": "monday",
+        "venue": "SHB303",
+        "tutor": "Timur Martinez Mukimov",
+        "type": "seminar",
+        "groups": ["4BIS3"]
+      },
+      {
+        "time": "11",
+        "day": "monday",
+        "venue": "SHB303",
+        "tutor": "Timur Martinez Mukimov",
+        "type": "seminar",
+        "groups": ["4BIS4"]
+      },
+      {
+        "time": "11",
+        "day": "tuesday",
+        "venue": "SHB304",
+        "tutor": "Timur Martinez Mukimov",
+        "type": "seminar",
+        "groups": ["4BIS7"]
+      },
+      {
+        "time": "15",
+        "day": "tuesday",
+        "venue": "SHB303",
+        "tutor": "Timur Martinez Mukimov",
+        "type": "seminar",
+        "groups": ["4BIS5"]
+      },
+      {
+        "time": "9",
+        "day": "monday",
+        "venue": "SHB304",
+        "tutor": "Vasiliy Kuznetsov",
+        "type": "seminar",
+        "groups": ["4BIS2"]
+      },
+      {
+        "time": "11",
+        "day": "monday",
+        "venue": "SHB304",
+        "tutor": "Vasiliy Kuznetsov",
+        "type": "seminar",
+        "groups": ["4BIS1"]
+      },
+      {
+        "time": "9",
+        "day": "friday",
+        "venue": "SHB304",
+        "tutor": "Vasiliy Kuznetsov",
+        "type": "seminar",
+        "groups": ["4BIS6"]
+      }
+    ]
+  },
+  {
+    "courseLevel": 4,
+    "course": ["BIS"],
+    "courseCode": "4BUIS011C-n",
+    "courseName": "Web Technology",
+    "teachers": ["Said Abduvaliev", "Ali Subair"],
+    "type": "core",
+    "classes": [
+      {
+        "time": "9",
+        "day": "tuesday",
+        "venue": "SHB408",
+        "tutor": "Ali Subair",
+        "type": "seminar",
+        "groups": ["4BIS3"]
+      },
+      {
+        "time": "11",
+        "day": "tuesday",
+        "venue": "SHB408",
+        "tutor": "Ali Subair",
+        "type": "seminar",
+        "groups": ["4BIS4"]
+      },
+      {
+        "time": "11",
+        "day": "monday",
+        "venue": "SHB305",
+        "tutor": "Said Abduvaliev",
+        "type": "seminar",
+        "groups": ["4BIS2"]
+      },
+      {
+        "time": "13",
+        "day": "monday",
+        "venue": "SHB408",
+        "tutor": "Said Abduvaliev",
+        "type": "seminar",
+        "groups": ["4BIS1"]
+      },
+      {
+        "time": "11",
+        "day": "friday",
+        "venue": "SHB305",
+        "tutor": "Said Abduvaliev",
+        "type": "seminar",
+        "groups": ["4BIS6"]
+      },
+      {
+        "time": "14",
+        "day": "friday",
+        "venue": "SHB303",
+        "tutor": "Said Abduvaliev",
+        "type": "seminar",
+        "groups": ["4BIS7"]
+      },
+      {
+        "time": "16",
+        "day": "friday",
+        "venue": "SHB303",
+        "tutor": "Said Abduvaliev",
+        "type": "seminar",
+        "groups": ["4BIS5"]
+      }
+    ]
+  },
+  {
+    "courseLevel": 4,
+    "course": ["BIS"],
+    "courseCode": "4BUIS012C-n",
+    "courseName": "Computer Science Fundamentals",
+    "teachers": ["Olga Yugay", "Isomiddin Abdunabiev"],
+    "type": "core",
+    "classes": [
+      {
+        "time": "11",
+        "day": "monday",
+        "venue": "SHB408",
+        "tutor": "Isomiddin Abdunabiev",
+        "type": "seminar",
+        "groups": ["4BIS5"]
+      },
+      {
+        "time": "9",
+        "day": "tuesday",
+        "venue": "SHB305",
+        "tutor": "Isomiddin Abdunabiev",
+        "type": "seminar",
+        "groups": ["4BIS7"]
+      },
+      {
+        "time": "9",
+        "day": "monday",
+        "venue": "SHB408",
+        "tutor": "Olga Yugay",
+        "type": "seminar",
+        "groups": ["4BIS6"]
+      },
+      {
+        "time": "9",
+        "day": "thursday",
+        "venue": "SHB303",
+        "tutor": "Olga Yugay",
+        "type": "seminar",
+        "groups": ["4BIS1"]
+      },
+      {
+        "time": "13",
+        "day": "thursday",
+        "venue": "SHB408",
+        "tutor": "Olga Yugay",
+        "type": "seminar",
+        "groups": ["4BIS2"]
+      },
+      {
+        "time": "9",
+        "day": "friday",
+        "venue": "SHB408",
+        "tutor": "Olga Yugay",
+        "type": "seminar",
+        "groups": ["4BIS3"]
+      },
+      {
+        "time": "13",
+        "day": "friday",
+        "venue": "SHB408",
+        "tutor": "Olga Yugay",
+        "type": "seminar",
+        "groups": ["4BIS4"]
+      },
+      {
+        "time": "14",
+        "day": "wednesday",
+        "venue": "SHB305",
+        "tutor": "Olga Yugay",
+        "type": "lecture",
+        "groups": [
+          "4BIS1",
+          "4BIS2",
+          "4BIS3",
+          "4BIS4",
+          "4BIS5",
+          "4BIS6",
+          "4BIS7"
+        ]
+      }
+    ]
+  },
+  {
+    "courseLevel": 4,
+    "course": ["BIS", "Eco", "Fin", "BM"],
+    "courseCode": "4ECON006C-n",
+    "courseName": "Introduction to Statistics and Data Science",
+    "teachers": [
+      "Gulomjon Kosimjonov",
+      "Olmas Isakov",
+      "Gayrat Suyunov",
+      "Zarrukh Rakhimov",
+      "Jamshid Normatov"
+    ],
+    "type": "core",
+    "classes": [
+      {
+        "time": "9",
+        "day": "monday",
+        "venue": "ATB304",
+        "tutor": "Zarrukh Rakhimov",
+        "type": "seminar",
+        "groups": ["4BIS4"]
+      },
+      {
+        "time": "11",
+        "day": "monday",
+        "venue": "ATB311",
+        "tutor": "Gayrat Suyunov",
+        "type": "seminar",
+        "groups": ["4BIS3"]
+      },
+      {
+        "time": "9",
+        "day": "tuesday",
+        "venue": "ATB311",
+        "tutor": "Gayrat Suyunov",
+        "type": "seminar",
+        "groups": ["4BIS1"]
+      },
+      {
+        "time": "16",
+        "day": "tuesday",
+        "venue": "ATB303",
+        "tutor": "Gayrat Suyunov",
+        "type": "seminar",
+        "groups": ["4BIS2"]
+      },
+      {
+        "time": "14",
+        "day": "thursday",
+        "venue": "ATB209",
+        "tutor": "Gayrat Suyunov",
+        "type": "seminar",
+        "groups": ["4BIS7"]
+      },
+      {
+        "time": "16",
+        "day": "thursday",
+        "venue": "ATB207",
+        "tutor": "Gayrat Suyunov",
+        "type": "seminar",
+        "groups": ["4BIS5"]
+      },
+      {
+        "time": "16",
+        "day": "tuesday",
+        "venue": "ATB207",
+        "tutor": "Jamshid Normatov",
+        "type": "seminar",
+        "groups": ["4BIS6"]
+      }
+    ]
+  },
+  {
+    "courseLevel": 4,
+    "course": ["BIS", "BM"],
+    "courseCode": "4MNST001C-n",
+    "courseName": "Introduction to Management and Organisational Behaviour",
+    "teachers": [
+      "Alisher Ismailov",
+      "Gulnaz Bektemirova",
+      "Athar Hameed Butt",
+      "Farhod Karimov",
+      "Abdurasul Absalomov"
+    ],
+    "type": "core",
+    "classes": [
+      {
+        "time": "16",
+        "day": "thursday",
+        "venue": "ATB218",
+        "tutor": "Alisher Ismailov",
+        "type": "seminar",
+        "groups": ["4BIS6"]
+      },
+      {
+        "time": "15",
+        "day": "thursday",
+        "venue": "ATB302",
+        "tutor": "Gulnaz Bektemirova",
+        "type": "seminar",
+        "groups": ["4BIS3"]
+      },
+      {
+        "time": "11",
+        "day": "friday",
+        "venue": "ATB209",
+        "tutor": "Gulnaz Bektemirova",
+        "type": "seminar",
+        "groups": ["4BIS2"]
+      },
+      {
+        "time": "14",
+        "day": "friday",
+        "venue": "ATB303",
+        "tutor": "Gulnaz Bektemirova",
+        "type": "seminar",
+        "groups": ["4BIS1"]
+      },
+      {
+        "time": "16",
+        "day": "thursday",
+        "venue": "ATB312",
+        "tutor": "Athar Hameed Butt",
+        "type": "seminar",
+        "groups": ["4BIS4"]
+      },
+      {
+        "time": "14",
+        "day": "monday",
+        "venue": "IB101",
+        "tutor": "Farhod Karimov",
+        "type": "seminar",
+        "groups": ["4BIS5"]
+      },
+      {
+        "time": "9",
+        "day": "monday",
+        "venue": "ATB209",
+        "tutor": "Abdurasul Absalomov",
+        "type": "seminar",
+        "groups": ["4BIS7"]
+      },
+      {
+        "time": "11",
+        "day": "wednesday",
+        "venue": "Harvard306",
+        "tutor": "Alisher Ismailov",
+        "type": "lecture",
+        "groups": [
+          "4BIS1",
+          "4BIS2",
+          "4BIS3",
+          "4BIS4",
+          "4BIS5",
+          "4BIS6",
+          "4BIS7"
+        ]
       }
     ]
   }
