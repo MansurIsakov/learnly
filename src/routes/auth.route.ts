@@ -1,20 +1,20 @@
 import { Router, Request, Response } from "express";
+import isAuth from "../middlewares/isAuth";
 
 const router: Router = Router();
 
-// import * as authController from "../controller/auth/auth.controller";
+import * as authController from "../controllers/auth.controller";
+
 /**
  * @route   api/v1/auth
  */
 
-// Login
-// router.get("/login", (req: Request, res: Response) => {
-//   res.sendFile(__dirname + "/login.html");
-// });
+// Login w/ GitHub
+router.route("/auth/github").get(authController.githubLogin);
 
-// // Dashboard
-// router.get("/", (req: Request, res: Response) => {
-//   res.sendFile(__dirname + "/dashboard.html");
-// });
+router.route("/auth/github/callback").get(authController.githubAuth);
+
+// Logout
+router.route("/auth/logout").get(authController.logout);
 
 export default router;
