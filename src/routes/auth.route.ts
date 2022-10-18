@@ -1,20 +1,26 @@
-import { Router, Request, Response } from "express";
-import isAuth from "../middlewares/isAuth";
+import { Router } from "express";
 
 const router: Router = Router();
 
-import * as authController from "../controllers/auth.controller";
-
+import * as authController from "../controller/auth.controller";
 /**
  * @route   api/v1/auth
  */
 
-// Login w/ GitHub
-router.route("/auth/github").get(authController.githubLogin);
+// Sign Up
+router.route("/signup").post(authController.signUp);
 
-router.route("/auth/github/callback").get(authController.githubAuth);
+// Login
+router.route("/login").post(authController.login);
 
-// Logout
-router.route("/auth/logout").get(authController.logout);
+// Forgot Password
+router.route("/forgot-password").post((req, res) => {
+  res.send("Forgot Password");
+});
+
+// Reset Password
+router.route("/reset-password").put((req, res) => {
+  res.send("Reset Password");
+});
 
 export default router;

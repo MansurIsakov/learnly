@@ -7,7 +7,7 @@ const router: Router = Router();
  */
 
 // Get all modules
-router.route("/modules").get((req: Request, res: Response) => {
+router.route("/").get((req: Request, res: Response) => {
   res.status(200).json({
     success: true,
     message: "Get all modules",

@@ -1,17 +1,24 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
+import * as authController from "../controller/auth.controller";
+import * as userController from "../controller/users.controller";
 
 const router: Router = Router();
-
-import * as usersController from "../controllers/users.controller";
-import isAuth from "../middlewares/isAuth";
 
 /**
  * @route   api/v1/users
  */
 
-router.use(isAuth);
+// Users
+router
+  .route("/")
+  .post(userController.createUser)
+  .get(userController.getAllUsers);
 
-// Get all users
-router.route("/users").get(usersController.getAllUsers);
+// User
+router
+  .route("/:id")
+  .get(authController.protect, userController.getUser)
+  .delete(authController.protect, userController.deleteUser)
+  .put(userController.updateUser);
 
 export default router;
