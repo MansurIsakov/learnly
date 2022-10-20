@@ -77,6 +77,12 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+userSchema.virtual("schedule", {
+  ref: "Schedule",
+  localField: "_id",
+  foreignField: "owner",
+});
+
 userSchema.pre("save", async function (next) {
   let user = this as UserDocument;
 

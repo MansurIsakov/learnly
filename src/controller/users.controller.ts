@@ -13,7 +13,7 @@ export const deleteUser = deleteOne(User);
 // GET 1
 export const getUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    let doc = await User.findById(req.params.id);
+    let doc = await User.findById(req.params.id).populate("schedule");
 
     if (!doc) {
       return next(new AppError(`No ${doc} found with that ID`, 404));
