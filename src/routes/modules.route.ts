@@ -1,4 +1,6 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
+import * as authController from "../controller/auth.controller";
+import * as modulesController from "../controller/modules.controller";
 
 const router: Router = Router();
 
@@ -6,12 +8,17 @@ const router: Router = Router();
  * @route   api/v1/modules
  */
 
-// Get all modules
-router.route("/").get((req: Request, res: Response) => {
-  res.status(200).json({
-    success: true,
-    message: "Get all modules",
-  });
-});
+// Modules
+router
+  .route("/")
+  .post(modulesController.createModule)
+  .get(modulesController.getAllModules);
+
+// Module
+router
+  .route("/:id")
+  .get(authController.protect, modulesController.getModule)
+  .delete(authController.protect, modulesController.deleteModule)
+  .put(modulesController.updateModule);
 
 export default router;

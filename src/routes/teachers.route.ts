@@ -14,7 +14,7 @@ router
   .post(teachersController.createTeacher)
   .get(teachersController.getAllTeachers);
 
-// User
+// Teacher
 router
   .route("/:id")
   .get(authController.protect, teachersController.getTeacher)
