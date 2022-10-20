@@ -9,6 +9,7 @@ export interface UserInput {
   active: boolean;
   emoji?: string;
   dob?: string;
+  modules?: string[];
 }
 
 export interface IUserRequest extends Request {

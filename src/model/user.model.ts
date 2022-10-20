@@ -60,6 +60,10 @@ const userSchema = new mongoose.Schema(
       required: false,
       default: "👋",
     },
+    modules: {
+      type: [String],
+      required: false,
+    },
     active: {
       type: Boolean,
       default: true,
