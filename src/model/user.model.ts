@@ -18,13 +18,13 @@ const userSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
-      required: [true, "Please, tell us your name"],
+      required: [true, "Tell us your name"],
       trim: true,
       minlength: [2, "The user name must have more or equal than 2 characters"],
     },
     lastName: {
       type: String,
-      required: [true, "Please, tell us your lastname"],
+      required: [true, "Tell us your lastname"],
       trim: true,
       minlength: [
         2,
@@ -33,14 +33,14 @@ const userSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      required: [true, "Please, tell us your email"],
+      required: [true, "Tell us your email"],
       lowercase: true,
       unique: true,
-      validate: [validator.isEmail, "Please, provide a valid email"],
+      validate: [validator.isEmail, "Provide a valid email"],
     },
     password: {
       type: String,
-      required: [true, "Please, provide a password"],
+      required: [true, "Provide a password"],
       minlength: 6,
       select: false,
     },

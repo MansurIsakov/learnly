@@ -1,4 +1,6 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
+import * as authController from "../controller/auth.controller";
+import * as teachersController from "../controller/teachers.controller";
 
 const router: Router = Router();
 
@@ -6,12 +8,17 @@ const router: Router = Router();
  * @route   api/v1/teachers
  */
 
-// Get all modules
-router.route("/").get((req: Request, res: Response) => {
-  res.status(200).json({
-    success: true,
-    message: "Get all teachers info",
-  });
-});
+// Teachers
+router
+  .route("/")
+  .post(teachersController.createTeacher)
+  .get(teachersController.getAllTeachers);
+
+// User
+router
+  .route("/:id")
+  .get(authController.protect, teachersController.getTeacher)
+  .delete(authController.protect, teachersController.deleteTeacher)
+  .put(teachersController.updateTeacher);
 
 export default router;
