@@ -4,8 +4,8 @@ import {
   deleteOne,
   createOne,
   getOne,
-} from "./handlerFactory.controller";
-import { Teacher } from "../model/teacher.model";
+} from "../../../helpers/handlerFactory.controller";
+import { Teacher } from "./teacher.model";
 
 export const getAllTeachers = getAll(Teacher);
 export const updateTeacher = updateOne(Teacher);

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { User } from "./user.model";
+import { User } from "../users/user.model";
 
 export interface ScheduleDocument extends mongoose.Document {
   owner: string;

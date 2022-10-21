@@ -1,10 +1,14 @@
-import { getAll, updateOne, deleteOne } from "./handlerFactory.controller";
+import {
+  getAll,
+  updateOne,
+  deleteOne,
+} from "../../../helpers/handlerFactory.controller";
 import { Request, Response, NextFunction } from "express";
-import { success, error } from "../utils/apiResponse";
+import { success, error } from "../../../utils/apiResponse";
 
-import catchAsync from "../utils/catchAsync";
-import AppError from "../utils/appError";
-import { User } from "../model/user.model";
+import catchAsync from "../../../utils/catchAsync";
+import AppError from "../../../utils/appError";
+import { User } from "./user.model";
 
 export const getAllUsers = getAll(User);
 export const updateUser = updateOne(User);

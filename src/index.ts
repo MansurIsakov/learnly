@@ -1,6 +1,6 @@
 import express, { Express, NextFunction, Request, Response } from "express";
 import { initConfig } from "./middlewares/";
-import routes from "../src/routes";
+import routes from "./modules";
 import { error } from "./utils/apiResponse";
 import AppError from "./utils/appError";
 import { errorResponse } from "./types/errors";

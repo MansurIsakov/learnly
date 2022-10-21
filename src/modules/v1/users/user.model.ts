@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import validator from "validator";
-import { UserInput } from "../types/interfaces/IUser";
+import { UserInput } from "../../../types/interfaces/IUser";
 
 export interface UserDocument extends UserInput, mongoose.Document {
   createdAt: Date;

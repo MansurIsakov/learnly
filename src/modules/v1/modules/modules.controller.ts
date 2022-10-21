@@ -4,8 +4,8 @@ import {
   deleteOne,
   createOne,
   getOne,
-} from "./handlerFactory.controller";
-import { Module } from "../model/module.model";
+} from "../../../helpers/handlerFactory.controller";
+import { Module } from "./module.model";
 
 export const getAllModules = getAll(Module);
 export const updateModule = updateOne(Module);

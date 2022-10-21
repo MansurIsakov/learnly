@@ -1,11 +1,11 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 
-import catchAsync from "../utils/catchAsync";
-import AppError from "../utils/appError";
-import { success } from "../utils/apiResponse";
-import { User } from "../model/user.model";
-import { IUserRequest } from "../types/interfaces/IUser";
+import catchAsync from "../../../utils/catchAsync";
+import AppError from "../../../utils/appError";
+import { success } from "../../../utils/apiResponse";
+import { User } from "../users/user.model";
+import { IUserRequest } from "../../../types/interfaces/IUser";
 
 const jwtExpires = () =>
   new Date(

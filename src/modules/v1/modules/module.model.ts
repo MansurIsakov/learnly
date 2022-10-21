@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ModuleInput } from "../types/interfaces/IModule";
+import { ModuleInput } from "../../../types/interfaces/IModule";
 
 export interface ModuleDocument extends ModuleInput, mongoose.Document {
   createdAt: Date;

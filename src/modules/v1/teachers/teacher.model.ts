@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import validator from "validator";
-import { TeacherInput } from "../types/interfaces/ITeacher";
+import { TeacherInput } from "../../../types/interfaces/ITeacher";
 
 export interface TeacherDocument extends TeacherInput, mongoose.Document {
   createdAt: Date;
