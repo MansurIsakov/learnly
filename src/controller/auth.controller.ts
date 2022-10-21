@@ -52,6 +52,8 @@ export const signUp = catchAsync(
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
+      course: req.body.course,
+      level: req.body.level,
       password: req.body.password,
       passwordConfirm: req.body.passwordConfirm,
     });

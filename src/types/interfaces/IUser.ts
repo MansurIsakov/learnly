@@ -5,7 +5,7 @@ export interface UserInput {
   lastName: string;
   email: string;
   password: string;
-  level: number;
+  level: string;
   course: string;
   role: string;
   active: boolean;

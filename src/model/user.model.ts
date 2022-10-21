@@ -45,10 +45,8 @@ const userSchema = new mongoose.Schema(
       select: false,
     },
     level: {
-      type: Number,
+      type: String,
       required: [true, "Provide a level"],
-      min: 3,
-      max: 6,
     },
     course: {
       type: String,
