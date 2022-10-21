@@ -9,7 +9,7 @@
 export const success = (
   message: string,
   statusCode: number,
-  results?: any, // [object],
+  results?: unknown,
   count?: number
 ) => {
   return {
