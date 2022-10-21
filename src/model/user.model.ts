@@ -44,6 +44,18 @@ const userSchema = new mongoose.Schema(
       minlength: 6,
       select: false,
     },
+    level: {
+      type: Number,
+      required: [true, "Provide a level"],
+      min: 3,
+      max: 6,
+    },
+    course: {
+      type: String,
+      required: [true, "Provide a course"],
+      enum: ["BIS", "BM", "ECO", "FIN", "CL"],
+      trim: true,
+    },
     role: {
       type: String,
       default: "user",
@@ -64,6 +76,7 @@ const userSchema = new mongoose.Schema(
       type: [String],
       required: false,
     },
+
     active: {
       type: Boolean,
       default: true,

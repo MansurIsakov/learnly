@@ -5,6 +5,8 @@ export interface UserInput {
   lastName: string;
   email: string;
   password: string;
+  level: number;
+  course: string;
   role: string;
   active: boolean;
   emoji?: string;
