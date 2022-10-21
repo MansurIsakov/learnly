@@ -1,8 +1,9 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express, NextFunction, Request, Response } from "express";
 import { initConfig } from "./middlewares/";
 import routes from "../src/routes";
 import { error } from "./utils/apiResponse";
 import AppError from "./utils/appError";
+import { errorResponse } from "./types/errors";
 
 const app: Express = express();
 initConfig(app);
@@ -13,7 +14,7 @@ app.all("*", (req, _, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
 });
 
-app.use((err: any, req: any, res: any, next: any) => {
+app.use((err: errorResponse, _: Request, res: Response, next: NextFunction) => {
   try {
     res
       .status(err.statusCode ?? 500)

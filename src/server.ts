@@ -1,6 +1,7 @@
 import app from "./";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import { errorResponse } from "./types/errors";
 
 dotenv.config();
 
@@ -28,9 +29,9 @@ const server = app.listen(port, async () => {
   await connect();
 });
 
-process.on("unhandledRejection", (err: any) => {
+process.on("unhandledRejection", (err: errorResponse) => {
   console.log("Goodbye, World!");
-  console.log(err.name, err.message);
+  console.log(err.statusCode, err.message);
   server.close(() => {
     process.exit(1);
   });

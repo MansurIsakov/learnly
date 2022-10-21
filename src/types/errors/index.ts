@@ -9,4 +9,9 @@ export enum TokensErrorCode {
   INVALID_REFRESH_TOKEN = "INVALID_REFRESH_TOKEN",
 }
 
+export type errorResponse = {
+  statusCode: number;
+  message: string;
+};
+
 type AuthErrorCode = RegistrationErrorCode | TokensErrorCode;

@@ -12,14 +12,18 @@ const jwtExpires = () =>
     Date.now() + (Number(process.env.JWT_EXPIRES_IN_MS) ?? 60 * 60 * 1000)
   );
 
-const signToken = (id: any) => {
+const signToken = (id: string) => {
   return jwt.sign({ id }, String(process.env.JWT_SECRET), {
     expiresIn: jwtExpires().getTime(),
   });
 };
 
 const createSendToken = (
-  user: any,
+  user: {
+    _id: string;
+    role: string;
+    password: string | undefined;
+  },
   statusCode: number,
   req: Request,
   res: Response
