@@ -1,15 +1,13 @@
-import app from "./";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { errorResponse } from "./types/errors";
+import express from "express";
+import { initConfig } from "./common/middlewares";
 
 dotenv.config();
 
-process.on("uncaughtException", (err) => {
-  console.log("Goodbye world!");
-  console.log(err.name, err.message);
-  process.exit(1);
-});
+const app = express();
+initConfig(app);
 
 async function connect() {
   try {
@@ -21,12 +19,17 @@ async function connect() {
   }
 }
 
-const port = process.env.PORT || 3000;
-
-const server = app.listen(port, async () => {
-  console.log(`App is running at http://localhost:${port}`);
+const server = app.listen(process.env.PORT, async () => {
+  console.log(`App is running at http://localhost:${process.env.PORT}`);
 
   await connect();
+});
+
+// Uncaught Exception Handler && Unhandled Rejection Handler
+process.on("uncaughtException", (err) => {
+  console.log("Goodbye world!");
+  console.log(err.name, err.message);
+  process.exit(1);
 });
 
 process.on("unhandledRejection", (err: errorResponse) => {
@@ -36,5 +39,3 @@ process.on("unhandledRejection", (err: errorResponse) => {
     process.exit(1);
   });
 });
-
-export default server;

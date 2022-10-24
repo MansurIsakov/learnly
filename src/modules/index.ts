@@ -1,10 +1,10 @@
 import { Router, Request, Response, NextFunction } from "express";
 
-import authRouter from "./auth.route";
-import usersRouter from "./users.route";
-import teachersRouter from "./teachers.route";
-import modulesRouter from "./modules.route";
-import scheduleRouter from "./schedule.route";
+import authRouter from "./v1/auth/auth.route";
+import usersRouter from "./v1/users/users.route";
+import teachersRouter from "./v1/teachers/teachers.route";
+import modulesRouter from "./v1/modules/modules.route";
+import scheduleRouter from "./v1/schedule/schedule.route";
 
 const router = Router();
 

@@ -1,8 +1,8 @@
 import express, { Express, NextFunction, Request, Response } from "express";
-import { initConfig } from "./middlewares/";
-import routes from "../src/routes";
-import { error } from "./utils/apiResponse";
-import AppError from "./utils/appError";
+import { initConfig } from "./common/middlewares";
+import routes from "./modules";
+import { error } from "./common/utils/apiResponse";
+import AppError from "./common/utils/appError";
 import { errorResponse } from "./types/errors";
 
 const app: Express = express();
