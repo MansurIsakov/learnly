@@ -2,12 +2,12 @@ import {
   getAll,
   updateOne,
   deleteOne,
-} from "../../../helpers/handlerFactory.controller";
+} from "../../../common/helpers/handlerFactory.controller";
 import { Request, Response, NextFunction } from "express";
-import { success, error } from "../../../utils/apiResponse";
+import { success, error } from "../../../common/utils/apiResponse";
 
-import catchAsync from "../../../utils/catchAsync";
-import AppError from "../../../utils/appError";
+import catchAsync from "../../../common/utils/catchAsync";
+import AppError from "../../../common/utils/appError";
 import { User } from "./user.model";
 
 export const getAllUsers = getAll(User);

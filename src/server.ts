@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { errorResponse } from "./types/errors";
 import express from "express";
-import { initConfig } from "./middlewares";
+import { initConfig } from "./common/middlewares";
 
 dotenv.config();
 

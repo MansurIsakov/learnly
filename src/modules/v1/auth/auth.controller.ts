@@ -1,9 +1,9 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 
-import catchAsync from "../../../utils/catchAsync";
-import AppError from "../../../utils/appError";
-import { success } from "../../../utils/apiResponse";
+import catchAsync from "../../../common/utils/catchAsync";
+import AppError from "../../../common/utils/appError";
+import { success } from "../../../common/utils/apiResponse";
 import { User } from "../users/user.model";
 import { IUserRequest } from "../../../types/interfaces/IUser";
 

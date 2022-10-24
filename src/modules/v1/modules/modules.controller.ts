@@ -4,7 +4,7 @@ import {
   deleteOne,
   createOne,
   getOne,
-} from "../../../helpers/handlerFactory.controller";
+} from "../../../common/helpers/handlerFactory.controller";
 import { Module } from "./module.model";
 
 export const getAllModules = getAll(Module);

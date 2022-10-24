@@ -1,4 +1,7 @@
-import { getAll, createOne } from "../../../helpers/handlerFactory.controller";
+import {
+  getAll,
+  createOne,
+} from "../../../common/helpers/handlerFactory.controller";
 import { Schedule } from "./schedule.model";
 
 export const getAllSchedules = getAll(Schedule);

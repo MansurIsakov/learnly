@@ -4,7 +4,7 @@ import {
   deleteOne,
   createOne,
   getOne,
-} from "../../../helpers/handlerFactory.controller";
+} from "../../../common/helpers/handlerFactory.controller";
 import { Teacher } from "./teacher.model";
 
 export const getAllTeachers = getAll(Teacher);
