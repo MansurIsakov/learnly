@@ -19,8 +19,6 @@ router.use("/modules", modulesRouter);
 router.use("/schedule", scheduleRouter);
 
 router.get("/", (req: Request, res: Response, next: NextFunction) => {
-  console.log(req.user);
-
   res.status(200).json({
     success: true,
     message: "Server v1 is up and running",
