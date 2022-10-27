@@ -3,7 +3,7 @@ import { success } from "../utils/apiResponse";
 
 import APIFeatures from "../utils/apiFeatures";
 import catchAsync from "../utils/catchAsync";
-import AppError from "../utils/appError";
+import { backResponse } from "../../types";
 
 // GET *
 export const getAll = (Model: any) =>
@@ -27,7 +27,10 @@ export const getOne = (Model: any, populateOptions?: any) =>
     const doc = await query;
 
     if (!doc) {
-      return next(new AppError(`No ${doc} found with that ID`, 404));
+      return backResponse.clientError(res, {
+        message: `No ${doc} found with that ID`,
+        code: 404,
+      });
     }
 
     res.status(200).json(success("success", 200, doc));
@@ -42,7 +45,10 @@ export const updateOne = (Model: any) => {
     });
 
     if (!doc) {
-      return next(new AppError(`No ${doc} found with that ID`, 404));
+      return backResponse.clientError(res, {
+        message: `No ${doc} found with that ID`,
+        code: 404,
+      });
     }
 
     res.status(200).json(success("success", 200, doc));
@@ -55,7 +61,10 @@ export const deleteOne = (Model: any) => {
     const doc = await Model.findByIdAndDelete(req.params.id);
 
     if (!doc) {
-      return next(new AppError(`No ${doc} found with that ID`, 404));
+      return backResponse.clientError(res, {
+        message: `No ${doc} found with that ID`,
+        code: 404,
+      });
     }
 
     res.status(204).json({

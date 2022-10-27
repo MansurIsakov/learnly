@@ -2,10 +2,11 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 
 import catchAsync from "../../../common/utils/catchAsync";
-import AppError from "../../../common/utils/appError";
-import { success } from "../../../common/utils/apiResponse";
+import { success, error } from "../../../common/utils/apiResponse";
 import { User } from "../users/user.model";
 import { IUserRequest } from "../../../types/interfaces/IUser";
+import { backResponse } from "../../../types";
+import { TokensErrorCode, UserErrorCode } from "../../../types/errors";
 
 const jwtExpires = () =>
   new Date(
@@ -70,13 +71,19 @@ export const login = catchAsync(
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return next(new AppError("Please provide email and password", 400));
+      return backResponse.clientError(res, {
+        message: "Please provide email and password!",
+        code: UserErrorCode.INVALID_EMAIL_PASSWORD,
+      });
     }
 
     const user = await User.findOne({ email }).select("+password");
 
     if (!user || !(await user.comparePassword(password, user.password))) {
-      return next(new AppError("Incorrect email or password", 401));
+      return backResponse.clientError(res, {
+        message: "Incorrect email or password",
+        code: UserErrorCode.INVALID_EMAIL_PASSWORD,
+      });
     }
     createSendToken(user, 200, req, res);
   }
@@ -103,18 +110,20 @@ export const protect = catchAsync(
     }
 
     if (!token) {
-      return next(
-        new AppError("You are not logged in! Please log in to get access", 401)
-      );
+      return backResponse.clientError(res, {
+        message: "You are not logged in! Please log in to get access.",
+        code: TokensErrorCode.INVALID_TOKEN,
+      });
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
 
     const currentUser = await User.findById(decoded.id);
     if (!currentUser) {
-      return next(
-        new AppError("The user belonging to this token does not exist!", 401)
-      );
+      return backResponse.clientError(res, {
+        message: "The user belonging to this token does no longer exist.",
+        code: UserErrorCode.USER_NOT_FOUND,
+      });
     }
 
     user = currentUser;

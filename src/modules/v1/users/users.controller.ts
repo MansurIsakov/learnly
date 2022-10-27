@@ -7,8 +7,9 @@ import { Request, Response, NextFunction } from "express";
 import { success, error } from "../../../common/utils/apiResponse";
 
 import catchAsync from "../../../common/utils/catchAsync";
-import AppError from "../../../common/utils/appError";
 import { User } from "./user.model";
+import { backResponse } from "../../../types";
+import { UserErrorCode } from "../../../types/errors";
 
 export const getAllUsers = getAll(User);
 export const updateUser = updateOne(User);
@@ -20,7 +21,10 @@ export const getUser = catchAsync(
     let doc = await User.findById(req.params.id).populate("schedule");
 
     if (!doc) {
-      return next(new AppError(`No ${doc} found with that ID`, 404));
+      return backResponse.clientError(res, {
+        message: "No user found with that ID",
+        code: UserErrorCode.USER_NOT_FOUND,
+      });
     }
 
     res.status(200).json(success("success", 200, doc));
