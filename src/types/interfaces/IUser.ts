@@ -11,6 +11,7 @@ export interface UserInput {
   active: boolean;
   emoji?: string;
   dob?: string;
+  status?: string[];
   modules?: string[];
 }
 
