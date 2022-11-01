@@ -1,29 +1,18 @@
-import dotenv from "dotenv";
-import mongoose from "mongoose";
-import { errorResponse } from "./types/errors";
 import express from "express";
-import { initConfig } from "./common/middlewares";
 
-dotenv.config();
+import { env } from "@env";
+import { loader, logger } from "@lib";
+import { errorResponse } from "@type";
 
 const app = express();
-initConfig(app);
 
-async function connect() {
-  try {
-    await mongoose.connect(process.env.DATABASE_URI!);
-    console.log("DB CONNECTED");
-  } catch (error) {
-    console.log("Could not connect to DB");
-    process.exit(1);
-  }
-}
+(async () => {
+  await loader({ expressApp: app });
+})();
 
-const server = app.listen(process.env.PORT, async () => {
-  console.log(`App is running at http://localhost:${process.env.PORT}`);
-
-  await connect();
-});
+const server = app.listen(env.PORT, () =>
+  logger.info(`Server up and ready on port ${env.PORT} in ${env.NODE_ENV} mode`)
+);
 
 // Uncaught Exception Handler && Unhandled Rejection Handler
 process.on("uncaughtException", (err) => {

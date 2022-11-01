@@ -1,4 +1,8 @@
 import { Response as EResponse } from "express";
+import { logger } from "@lib";
+
+export * from "./errors";
+export * from "./middleware";
 
 export const backResponse = {
   jsonRes: <T>(
