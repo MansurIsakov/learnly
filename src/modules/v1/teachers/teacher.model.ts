@@ -51,6 +51,10 @@ const teacherSchema = new mongoose.Schema(
       type: [String],
       required: false,
     },
+    imageNum: {
+      type: Number,
+      required: true,
+    },
     active: {
       type: Boolean,
       default: true,

@@ -5,4 +5,5 @@ export interface TeacherInput {
   position: string;
   modules: string[];
   reviews: string[];
+  imageNum: number;
 }
