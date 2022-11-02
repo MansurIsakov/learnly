@@ -36,7 +36,7 @@ export const loader = async ({ app }: ExpressLoaderParams) => {
   app.use(rateLimiterLib());
 
   /** API routes */
-  app.use("/", router);
+  app.use("/api/v1", router);
 
   /** 404 handler */
   app.use("*", (_, res: EResponse) =>
