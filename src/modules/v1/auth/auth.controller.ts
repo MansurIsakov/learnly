@@ -1,12 +1,12 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 
-import catchAsync from "../../../common/utils/catchAsync";
-import { success, error } from "../../../common/utils/apiResponse";
 import { User } from "../users/user.model";
 import { IUserRequest } from "../../../types/interfaces/IUser";
-import { backResponse } from "../../../types";
+import { AsyncMiddleware, backResponse } from "../../../types";
 import { TokensErrorCode, UserErrorCode } from "../../../types/errors";
+import { Controller } from "@type/controller";
+import { logger } from "@common/lib";
 
 const jwtExpires = () =>
   new Date(
@@ -51,8 +51,12 @@ const createSendToken = (
   });
 };
 
-export const signUp = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+export const signUp = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
     const newUser = await User.create({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -63,11 +67,17 @@ export const signUp = catchAsync(
       passwordConfirm: req.body.passwordConfirm,
     });
     createSendToken(newUser, 201, req, res);
+  } catch (error) {
+    next(error);
   }
-);
+};
 
-export const login = catchAsync(
-  async (req: IUserRequest, res: Response, next: NextFunction) => {
+export const login = async (
+  req: IUserRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -86,28 +96,39 @@ export const login = catchAsync(
       });
     }
     createSendToken(user, 200, req, res);
+  } catch (error) {
+    next(error);
   }
-);
+};
 
 export const logout = (req: Request, res: Response) => {
   res.cookie("jwt", "loggedout", {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
   });
-  res.status(200).json(success("success", 200));
+  backResponse.ok(res, { message: "Logged out successfully" });
 };
 
-export const protect = catchAsync(
-  async (req: IUserRequest, res: Response, next: NextFunction) => {
-    let user = req.user;
+export const protect: AsyncMiddleware = async (req, res, next) => {
+  try {
+    const { authorization } = req.headers;
 
-    let token;
-    if (
-      req.headers.authorization &&
-      req.headers.authorization.startsWith("Bearer")
-    ) {
-      token = req.headers.authorization.split(" ")[1];
+    if (!authorization) {
+      logger.info("[Auth] No authorization header found");
+      return backResponse.unauthorized(res, {
+        code: TokensErrorCode.INVALID_TOKEN,
+      });
     }
+
+    const split = authorization.split("Bearer ");
+    if (!authorization.startsWith("Bearer ") || split.length !== 2) {
+      logger.info(`[Auth] Invalid authorization header: ${authorization}`);
+      return backResponse.unauthorized(res, {
+        code: TokensErrorCode.INVALID_TOKEN,
+      });
+    }
+
+    let token = split[1];
 
     if (!token) {
       return backResponse.clientError(res, {
@@ -116,18 +137,30 @@ export const protect = catchAsync(
       });
     }
 
+    let user;
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
 
     const currentUser = await User.findById(decoded.id);
+
     if (!currentUser) {
       return backResponse.clientError(res, {
         message: "The user belonging to this token does no longer exist.",
         code: UserErrorCode.USER_NOT_FOUND,
       });
     }
-
     user = currentUser;
-    req.user = currentUser;
+
+    res.locals = {
+      ...res.locals,
+      user: {
+        ...user,
+        userId: user.id,
+      },
+      token: decoded,
+    };
+
     next();
+  } catch (error) {
+    next(error);
   }
-);
+};

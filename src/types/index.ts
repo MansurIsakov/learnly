@@ -16,6 +16,7 @@ export const backResponse = {
         message: body.message ?? defaultMessage,
         data: body.data ?? undefined,
         code: body.code ?? undefined,
+        count: body.count ?? undefined,
         ...body,
       });
     } else {
@@ -35,6 +36,9 @@ export const backResponse = {
 
   created: <T>(res: EResponse, body?: ResponseBody<T>) => {
     backResponse.jsonRes<T>(res, 201, body);
+  },
+  deleted: <T>(res: EResponse) => {
+    backResponse.jsonRes<T>(res, 204);
   },
 
   clientError: <T>(res: EResponse, body?: ResponseBody<T>) => {

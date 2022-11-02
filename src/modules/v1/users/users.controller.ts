@@ -4,20 +4,19 @@ import {
   deleteOne,
 } from "../../../common/helpers/handlerFactory.controller";
 import { Request, Response, NextFunction } from "express";
-import { success, error } from "../../../common/utils/apiResponse";
 
-import catchAsync from "../../../common/utils/catchAsync";
 import { User } from "./user.model";
 import { backResponse } from "../../../types";
 import { UserErrorCode } from "../../../types/errors";
+import { ClientErrorException } from "@common/utils/appError";
 
 export const getAllUsers = getAll(User);
 export const updateUser = updateOne(User);
 export const deleteUser = deleteOne(User);
 
-// GET 1
-export const getUser = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+// GET User
+export const getUser = async (req: Request, res: Response, _: NextFunction) => {
+  try {
     let doc = await User.findById(req.params.id).populate("schedule");
 
     if (!doc) {
@@ -26,14 +25,10 @@ export const getUser = catchAsync(
         code: UserErrorCode.USER_NOT_FOUND,
       });
     }
-
-    res.status(200).json(success("success", 200, doc));
+    backResponse.ok(res, { results: doc });
+  } catch (error) {
+    throw new ClientErrorException({
+      message: "Failed to find user",
+    });
   }
-);
-
-// Unhandled Router
-export const createUser = (req: Request, res: Response) => {
-  res
-    .status(500)
-    .json(error("This route is not defined! Please use /singup instead.", 500));
 };

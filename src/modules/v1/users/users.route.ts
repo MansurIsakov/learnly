@@ -9,10 +9,7 @@ const router: Router = Router();
  */
 
 // Users
-router
-  .route("/")
-  .post(userController.createUser)
-  .get(userController.getAllUsers);
+router.route("/").get(userController.getAllUsers);
 
 // User
 router
