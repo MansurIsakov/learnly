@@ -41,13 +41,7 @@ const createSendToken = (
   // Remove password from output
   user.password = undefined;
 
-  res.status(statusCode).json({
-    status: "success",
-    token,
-    data: {
-      user,
-    },
-  });
+  backResponse.ok(res, { token, user });
 };
 
 export const signUp = async (
