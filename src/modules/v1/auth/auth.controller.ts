@@ -5,7 +5,6 @@ import { User } from "../users/user.model";
 import { IUserRequest } from "../../../types/interfaces/IUser";
 import { AsyncMiddleware, backResponse } from "../../../types";
 import { TokensErrorCode, UserErrorCode } from "../../../types/errors";
-import { Controller } from "@type/controller";
 import { logger } from "@common/lib";
 
 const jwtExpires = () =>
