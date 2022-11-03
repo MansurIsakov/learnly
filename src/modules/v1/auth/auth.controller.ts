@@ -24,7 +24,6 @@ const createSendToken = (
     role: string;
     password: string | undefined;
   },
-  statusCode: number,
   req: Request,
   res: Response
 ): void => {
@@ -50,6 +49,36 @@ export const signUp = async (
   next: NextFunction
 ) => {
   try {
+    let {
+      firstName,
+      lastName,
+      email,
+      password,
+      passwordConfirm,
+      course,
+      level,
+    } = req.body;
+
+    firstName = firstName?.trim();
+    lastName = lastName?.trim();
+    email = email?.trim();
+
+    /** Validate email */
+    if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      return backResponse.clientError(res, {
+        message: "Email number must be provided",
+        code: UserErrorCode.INVALID_EMAIL_PASSWORD,
+      });
+    }
+
+    /** Validate firstName */
+    if (!firstName) {
+      return backResponse.clientError(res, {
+        message: "First name must be provided",
+        code: UserErrorCode.INVALID_FIRST_NAME,
+      });
+    }
+
     const newUser = await User.create({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -59,8 +88,16 @@ export const signUp = async (
       password: req.body.password,
       passwordConfirm: req.body.passwordConfirm,
     });
-    createSendToken(newUser, 201, req, res);
-  } catch (error) {
+
+    createSendToken(newUser, req, res);
+  } catch (error: any) {
+    if (error.code === 11000) {
+      return backResponse.clientError(res, {
+        message: "This email is already registered",
+        code: UserErrorCode.EMAIL_ALREADY_EXISTS,
+      });
+    }
+
     next(error);
   }
 };
@@ -88,7 +125,7 @@ export const login = async (
         code: UserErrorCode.INVALID_EMAIL_PASSWORD,
       });
     }
-    createSendToken(user, 200, req, res);
+    createSendToken(user, req, res);
   } catch (error) {
     next(error);
   }
