@@ -158,7 +158,41 @@ export const addModule = async (
   }
 };
 
-export const getModules = async () => {};
+export const getModules = async (
+  req: Request,
+  res: Response,
+  _: NextFunction
+) => {
+  try {
+    let user = await User.findById(req.params.id);
+
+    if (!user) {
+      return backResponse.clientError(res, {
+        message: "No user found with that ID",
+        code: UserErrorCode.USER_NOT_FOUND,
+      });
+    }
+
+    const moduleIds: string[] = user.modules.map((module) => module.moduleId);
+
+    let modules = await Module.find({
+      _id: { $in: moduleIds },
+    });
+
+    if (!modules) {
+      return backResponse.clientError(res, {
+        message: "No modules found",
+        code: UserErrorCode.USER_NO_MODULES,
+      });
+    }
+
+    backResponse.ok(res, { results: modules, count: modules.length });
+  } catch (error) {
+    throw new ClientErrorException({
+      message: "Failed to find user's modules",
+    });
+  }
+};
 
 export const deleteModule = async (
   req: Request,
@@ -166,9 +200,10 @@ export const deleteModule = async (
   next: NextFunction
 ) => {
   try {
-    let user = await User.findById(req.params.id);
-
     let { moduleId } = req.body;
+
+    let user = await User.findById(req.params.id);
+    let module = await Module.findById(moduleId);
 
     if (!user) {
       return backResponse.clientError(res, {
@@ -184,10 +219,24 @@ export const deleteModule = async (
       });
     }
 
-    // if (module.type === "core") {
-    //   user.modules?.splice(user.modules.indexOf(moduleId), 1);
-    //   user.credits -= 20;
-    // }
+    if (module?.type === "core") {
+      return backResponse.clientError(res, {
+        message: "User cannot delete core modules",
+        code: UserErrorCode.USER_REMOVE_CORE_MODULE,
+      });
+    }
+
+    for (let i in user.modules) {
+      if (user.modules[i].moduleId === moduleId) {
+        user.modules.splice(+i, 1);
+        user.credits -= +env.CREDITS_PER_MODULE;
+        break;
+      }
+    }
+
+    await user.save();
+
+    backResponse.ok(res, { results: user });
   } catch (error) {
     throw new ClientErrorException({
       message: "Failed to delete module",
