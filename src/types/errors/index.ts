@@ -15,6 +15,7 @@ export enum RegistrationErrorCode {
 
 export enum TokensErrorCode {
   INVALID_TOKEN = "INVALID_TOKEN",
+  JSON_WEB_TOKEN_ERROR = "JSON_WEB_TOKEN_ERROR",
 }
 
 export enum UserErrorCode {

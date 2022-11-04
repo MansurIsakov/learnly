@@ -158,7 +158,7 @@ export const protect: AsyncMiddleware = async (req, res, next) => {
       });
     }
 
-    const split = authorization.split("Bearer ");
+    const split = authorization.split(" ");
     if (!authorization.startsWith("Bearer ") || split.length !== 2) {
       logger.info(`[Auth] Invalid authorization header: ${authorization}`);
       return backResponse.unauthorized(res, {
@@ -198,7 +198,14 @@ export const protect: AsyncMiddleware = async (req, res, next) => {
     };
 
     next();
-  } catch (error) {
+  } catch (error: any) {
+    if (error.name === "JsonWebTokenError") {
+      return backResponse.clientError(res, {
+        message: "Invalid token. Please log in again!",
+        code: TokensErrorCode.JSON_WEB_TOKEN_ERROR,
+      });
+    }
+
     next(error);
   }
 };
