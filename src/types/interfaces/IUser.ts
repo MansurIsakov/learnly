@@ -20,7 +20,10 @@ export interface UserInput {
   emoji?: string;
   dob?: string;
   status?: string[];
-  modules: UserModule[];
+  modules: {
+    moduleId: string;
+    moduleName: string;
+  }[];
   credits: number;
 }
 

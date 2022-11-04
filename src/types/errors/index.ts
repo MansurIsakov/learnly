@@ -36,6 +36,10 @@ export enum UserErrorCode {
   USER_REMOVE_CORE_MODULE = "USER_REMOVE_CORE_MODULE",
 }
 
+export enum ModuleErrorCode {
+  MODULE_NOT_FOUND = "MODULE_NOT_FOUND",
+}
+
 export enum DocumentCode {
   DOCUMENT_NOT_FOUND = "DOCUMENT_NOT_FOUND",
   DOCUMENT_ALREADY_EXISTS = "DOCUMENT_ALREADY_EXISTS",

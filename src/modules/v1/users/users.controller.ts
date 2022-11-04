@@ -7,11 +7,12 @@ import { Request, Response, NextFunction } from "express";
 
 import { User } from "./user.model";
 import { backResponse, Req } from "../../../types";
-import { UserErrorCode } from "../../../types/errors";
+import { ModuleErrorCode, UserErrorCode } from "../../../types/errors";
 import { ClientErrorException } from "@common/utils/appError";
-import { UserInput, UserModule } from "@type/interfaces/IUser";
+import { UserModule } from "@type/interfaces/IUser";
 import { Module } from "../modules/module.model";
 import { env } from "@env";
+import { ModuleInput } from "@type/interfaces/IModule";
 
 export const getAllUsers = getAll(User);
 export const updateUser = updateOne(User);
@@ -20,7 +21,7 @@ export const deleteUser = deleteOne(User);
 // GET User
 export const getUser = async (req: Request, res: Response, _: NextFunction) => {
   try {
-    let user = await User.findById(req.params.id).populate("schedule");
+    const user = await User.findById(req.params.id).populate("schedule");
 
     if (!user) {
       return backResponse.clientError(res, {
@@ -45,8 +46,8 @@ export const addCoreModules = async (
   next: NextFunction
 ) => {
   try {
-    let userId = await User.findById(req.params.id);
-    let user = await User.findById(userId);
+    const userId = await User.findById(req.params.id);
+    const user = await User.findById(userId);
 
     if (!user) {
       return backResponse.clientError(res, {
@@ -65,10 +66,7 @@ export const addCoreModules = async (
     const fixedCoreModules = coreModules.map((module) => {
       return {
         moduleId: module.id,
-        moduleLevel: module.moduleLevel,
         moduleName: module.moduleName,
-        type: module.type,
-        courses: module.courses,
       };
     });
 
@@ -94,9 +92,9 @@ export const addModule = async (
   _: NextFunction
 ) => {
   try {
-    let user = await User.findById(req.params.id);
+    const { moduleId }: UserModule = req.body;
 
-    let module: UserModule = req.body;
+    const user = await User.findById(req.params.id);
 
     if (!user) {
       return backResponse.clientError(res, {
@@ -112,21 +110,30 @@ export const addModule = async (
       });
     }
 
-    if (module.type === "core") {
+    const moduleToAdd = await Module.findById(moduleId);
+
+    if (!moduleToAdd) {
+      return backResponse.clientError(res, {
+        message: "No module found with that ID",
+        code: ModuleErrorCode.MODULE_NOT_FOUND,
+      });
+    }
+
+    if (moduleToAdd.type === "core") {
       return backResponse.clientError(res, {
         message: "User cannot add core modules",
         code: UserErrorCode.USER_ADD_CORE_MODULE,
       });
     }
 
-    if (module.moduleLevel !== +user.level) {
+    if (moduleToAdd.moduleLevel !== +user.level) {
       return backResponse.clientError(res, {
         message: "User cannot add modules of different levels",
         code: UserErrorCode.USER_ADD_DIFFERENT_LEVEL_MODULE,
       });
     }
 
-    if (!module.courses.includes(user.course)) {
+    if (!moduleToAdd.courses.includes(user.course)) {
       return backResponse.clientError(res, {
         message: "User cannot add modules of different courses",
         code: UserErrorCode.USER_ADD_DIFFERENT_COURSE_MODULE,
@@ -135,7 +142,7 @@ export const addModule = async (
 
     if (user.modules.length > 0) {
       const moduleExists = user.modules.find(
-        (userModule) => userModule.moduleId === module.moduleId
+        (userModule) => userModule.moduleId === moduleToAdd.id
       );
       if (moduleExists) {
         return backResponse.clientError(res, {
@@ -145,8 +152,13 @@ export const addModule = async (
       }
     }
 
+    const fixedModuleToAdd = {
+      moduleId: moduleToAdd.id,
+      moduleName: moduleToAdd.moduleName,
+    };
+
     user.credits += +env.CREDITS_PER_MODULE;
-    user.modules?.push(module);
+    user.modules?.push(fixedModuleToAdd);
 
     await user.save();
 
@@ -164,7 +176,7 @@ export const getModules = async (
   _: NextFunction
 ) => {
   try {
-    let user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id);
 
     if (!user) {
       return backResponse.clientError(res, {
@@ -175,7 +187,7 @@ export const getModules = async (
 
     const moduleIds: string[] = user.modules.map((module) => module.moduleId);
 
-    let modules = await Module.find({
+    const modules = await Module.find({
       _id: { $in: moduleIds },
     });
 
@@ -200,10 +212,9 @@ export const deleteModule = async (
   next: NextFunction
 ) => {
   try {
-    let { moduleId } = req.body;
+    const { moduleId } = req.body;
 
-    let user = await User.findById(req.params.id);
-    let module = await Module.findById(moduleId);
+    const user = await User.findById(req.params.id);
 
     if (!user) {
       return backResponse.clientError(res, {
@@ -211,6 +222,8 @@ export const deleteModule = async (
         code: UserErrorCode.USER_NOT_FOUND,
       });
     }
+
+    const module = await Module.findById(moduleId);
 
     if (user.credits <= 0) {
       return backResponse.clientError(res, {
