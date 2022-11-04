@@ -8,16 +8,16 @@ export interface ModuleDocument extends ModuleInput, mongoose.Document {
 
 const moduleSchema = new mongoose.Schema(
   {
-    courseLevel: {
+    moduleLevel: {
       type: Number,
       required: [true, "Provide the course level"],
       trim: true,
     },
-    course: {
+    courses: {
       type: [String],
       required: [true, "Provide the course"],
     },
-    courseCode: {
+    moduleCode: {
       type: String,
       unique: true,
       required: [true, "Provide the course code"],
@@ -27,7 +27,7 @@ const moduleSchema = new mongoose.Schema(
         "The course code must have more or equal than 2 characters",
       ],
     },
-    courseName: {
+    moduleName: {
       type: String,
       required: [true, "Provide the course name"],
       trim: true,
@@ -43,6 +43,15 @@ const moduleSchema = new mongoose.Schema(
     classes: {
       type: [Object],
       required: [true, "Provide the classes"],
+    },
+    credits: {
+      type: Number,
+      required: [true, "Provide the credits"],
+    },
+    type: {
+      type: String,
+      required: [true, "Provide the type"],
+      enum: ["core", "optional"],
     },
 
     active: {

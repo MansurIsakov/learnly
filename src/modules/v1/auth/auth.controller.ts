@@ -6,6 +6,7 @@ import { IUserRequest } from "../../../types/interfaces/IUser";
 import { AsyncMiddleware, backResponse } from "../../../types";
 import { TokensErrorCode, UserErrorCode } from "../../../types/errors";
 import { logger } from "@common/lib";
+import { addCoreModules } from "../users/users.controller";
 
 const jwtExpires = () =>
   new Date(
@@ -76,6 +77,13 @@ export const signUp = async (
       return backResponse.clientError(res, {
         message: "First name must be provided",
         code: UserErrorCode.INVALID_FIRST_NAME,
+      });
+    }
+
+    if (level <= 3 || level > 6) {
+      return backResponse.clientError(res, {
+        message: "Level must be between 3 and 6",
+        code: UserErrorCode.INVALID_LEVEL,
       });
     }
 

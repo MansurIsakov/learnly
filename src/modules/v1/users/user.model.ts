@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import validator from "validator";
 import { UserInput } from "../../../types/interfaces/IUser";
+import { env } from "@env";
 
 export interface UserDocument extends UserInput, mongoose.Document {
   createdAt: Date;
@@ -71,8 +72,13 @@ const userSchema = new mongoose.Schema(
       default: "👋",
     },
     modules: {
-      type: [String],
+      type: [Object],
       required: false,
+    },
+    credits: {
+      type: Number,
+      required: [true, "Provide the credits"],
+      default: 0,
     },
     status: {
       type: [String],

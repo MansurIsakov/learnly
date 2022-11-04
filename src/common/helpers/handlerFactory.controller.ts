@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import APIFeatures from "../utils/apiFeatures";
-import { backResponse } from "../../types";
+import { backResponse, DocumentCode, UserErrorCode } from "../../types";
 import { ClientErrorException } from "@common/utils/appError";
 import { logger } from "@common/lib";
 import { Controller } from "@type/controller";
@@ -101,8 +101,22 @@ export const createOne = (Model: any): Controller => {
       const doc = await Model.create(req.body);
 
       backResponse.created(res, { results: doc });
-    } catch (error) {
-      throw new ClientErrorException({ message: "Failed to create user" });
+    } catch (error: any) {
+      if (error.code === 11000) {
+        return backResponse.clientError(res, {
+          message: "This document is already exists",
+          code: DocumentCode.DOCUMENT_ALREADY_EXISTS,
+        });
+      }
+
+      if (error.message) {
+        return backResponse.clientError(res, {
+          message: error.message,
+          code: "UKNOWN",
+        });
+      }
+
+      throw new ClientErrorException({ message: "Failed to create item" });
     }
   };
 };
