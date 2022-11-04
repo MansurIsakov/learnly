@@ -1,8 +1,11 @@
 export interface ModuleInput {
-  courseLevel: number;
-  course: string[];
-  courseCode: string;
-  courseName: string;
+  moduleLevel: number;
+  module: string[];
+  moduleCode: string;
+  moduleName: string;
+  credits: number;
+  type: string;
   teachers: [];
   classes: object[];
+  courses: string[];
 }

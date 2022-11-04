@@ -18,6 +18,10 @@ export const serverSchema = z.object({
   JWT_SECRET: z.string(),
   JWT_EXPIRES_IN_MS: z.string().default("360000"),
 
+  /** Credits */
+  MODULE_CREDITS: z.string().default("100"),
+  CREDITS_PER_MODULE: z.string().default("20"),
+
   /** Node */
   NODE_ENV: z
     .enum(["development", "test", "production"])

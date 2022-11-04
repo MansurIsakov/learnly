@@ -1,5 +1,13 @@
 import { Request } from "express";
 
+export interface UserModule {
+  moduleId: string;
+  moduleName: string;
+  type: string;
+  courses: string[];
+  moduleLevel: number;
+  credits?: number;
+}
 export interface UserInput {
   firstName: string;
   lastName: string;
@@ -12,7 +20,8 @@ export interface UserInput {
   emoji?: string;
   dob?: string;
   status?: string[];
-  modules?: string[];
+  modules: UserModule[];
+  credits: number;
 }
 
 export interface IUserRequest extends Request {
