@@ -150,7 +150,7 @@ export const addModule = async (
     }
 
     if (user.modules.length > 0) {
-      const moduleExists = user.modules.find(
+      const moduleExists = user.modules.some(
         (userModule) => userModule.moduleId === moduleToAdd.id
       );
       if (moduleExists) {
@@ -250,11 +250,16 @@ export const deleteModule = async (
       });
     }
 
-    if (user.modules.includes(module?.id)) {
-      return backResponse.clientError(res, {
-        message: "User does not have this module",
-        code: UserErrorCode.USER_DOES_NOT_HAVE_MODULE,
-      });
+    if (user.modules.length > 0) {
+      const moduleExists = user.modules.some(
+        (userModule) => userModule.moduleId === module?.id
+      );
+      if (!moduleExists) {
+        return backResponse.clientError(res, {
+          message: "User does not have this module",
+          code: UserErrorCode.USER_DOES_NOT_HAVE_MODULE,
+        });
+      }
     }
 
     for (let i in user.modules) {
