@@ -48,7 +48,7 @@ export const addCoreModules = async (
   next: NextFunction
 ) => {
   try {
-    const userId = await User.findById(res.locals?.user.userId);
+    const userId = await User.findById(res.locals?.user.id);
     const user = await User.findById(userId);
 
     if (!user) {
@@ -103,7 +103,7 @@ export const addModule = async (
   try {
     const { moduleId }: UserModule = req.body;
 
-    const user = await User.findById(res.locals?.user.userId);
+    const user = await User.findById(res.locals?.user.id);
 
     if (!user) {
       return backResponse.clientError(res, {
@@ -185,7 +185,7 @@ export const getModules = async (
   _: NextFunction
 ) => {
   try {
-    const user = await User.findById(res.locals?.user.userId);
+    const user = await User.findById(res.locals?.user.id);
 
     if (!user) {
       return backResponse.clientError(res, {
@@ -221,7 +221,7 @@ export const deleteModule = async (
   try {
     const { moduleId } = req.body;
 
-    const user = await User.findById(res.locals?.user.userId);
+    const user = await User.findById(res.locals?.user.id);
 
     if (!user) {
       return backResponse.clientError(res, {

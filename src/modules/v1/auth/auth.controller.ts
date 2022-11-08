@@ -190,11 +190,7 @@ export const protect: AsyncMiddleware = async (req, res, next) => {
     user = currentUser;
 
     res.locals = {
-      ...res.locals,
-      user: {
-        ...user,
-        userId: user.id,
-      },
+      user: user,
       token: decoded,
     };
 
