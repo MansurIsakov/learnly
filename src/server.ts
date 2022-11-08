@@ -28,18 +28,3 @@ const server = app.listen(env.PORT, async () => {
 
   await connect();
 });
-
-// Uncaught Exception Handler && Unhandled Rejection Handler
-process.on("uncaughtException", (err) => {
-  console.log("Goodbye world!");
-  console.log(err.name, err.message);
-  process.exit(1);
-});
-
-process.on("unhandledRejection", (err: errorResponse) => {
-  console.log("Goodbye, World!");
-  console.log(err.statusCode, err.message);
-  server.close(() => {
-    process.exit(1);
-  });
-});

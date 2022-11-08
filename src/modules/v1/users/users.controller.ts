@@ -31,6 +31,8 @@ export const getUser = async (req: Request, res: Response, _: NextFunction) => {
     }
     backResponse.ok(res, { results: user });
   } catch (error) {
+    console.log(1);
+
     throw new ClientErrorException({
       message: "Failed to find user",
     });
@@ -207,9 +209,7 @@ export const getModules = async (
 
     backResponse.ok(res, { results: modules, count: modules.length });
   } catch (error) {
-    throw new ClientErrorException({
-      message: "Failed to find user's modules",
-    });
+    console.log("Error: " + error);
   }
 };
 
