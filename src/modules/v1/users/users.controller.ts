@@ -207,7 +207,11 @@ export const getModules = async (
       });
     }
 
-    backResponse.ok(res, { results: modules, count: modules.length });
+    backResponse.ok(res, {
+      results: modules,
+      count: modules.length,
+      credits: user.credits,
+    });
   } catch (error) {
     console.log("Error: " + error);
   }
@@ -246,6 +250,13 @@ export const deleteModule = async (
       });
     }
 
+    if (user.modules.includes(module?.id)) {
+      return backResponse.clientError(res, {
+        message: "User does not have this module",
+        code: UserErrorCode.USER_DOES_NOT_HAVE_MODULE,
+      });
+    }
+
     for (let i in user.modules) {
       if (user.modules[i].moduleId === moduleId) {
         user.modules.splice(+i, 1);
@@ -255,7 +266,6 @@ export const deleteModule = async (
     }
 
     await user.save();
-
     backResponse.ok(res, { results: user });
   } catch (error) {
     throw new ClientErrorException({
