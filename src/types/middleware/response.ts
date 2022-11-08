@@ -11,8 +11,5 @@ export type BaseResLocals<U = ResLocalsUser, T = Token> = {
   token: T;
 };
 
-export type ResLocalsUser = Pick<
-  UserDocument,
-  "status" | "username" | "phoneNumber" | "roles"
-> &
+export type ResLocalsUser = Pick<UserDocument, "email"> &
   PickReplaceKey<UserDocument, { id: "userId" }>;

@@ -36,6 +36,7 @@ const createSendToken = (
     secure: req.secure,
   });
 
+  res.locals.user = user;
   res.locals.role = user.role;
 
   // Remove password from output

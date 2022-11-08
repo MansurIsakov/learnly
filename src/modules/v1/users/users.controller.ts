@@ -46,13 +46,20 @@ export const addCoreModules = async (
   next: NextFunction
 ) => {
   try {
-    const userId = await User.findById(req.params.id);
+    const userId = await User.findById(res.locals?.user.userId);
     const user = await User.findById(userId);
 
     if (!user) {
       return backResponse.clientError(res, {
         message: "No user found with that ID",
         code: UserErrorCode.USER_NOT_FOUND,
+      });
+    }
+
+    if (user.modules.length > 0) {
+      return backResponse.clientError(res, {
+        message: "User already has modules",
+        code: UserErrorCode.USER_ALREADY_HAS_MODULES,
       });
     }
 
@@ -94,7 +101,7 @@ export const addModule = async (
   try {
     const { moduleId }: UserModule = req.body;
 
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(res.locals?.user.userId);
 
     if (!user) {
       return backResponse.clientError(res, {
@@ -176,7 +183,7 @@ export const getModules = async (
   _: NextFunction
 ) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(res.locals?.user.userId);
 
     if (!user) {
       return backResponse.clientError(res, {
@@ -214,7 +221,7 @@ export const deleteModule = async (
   try {
     const { moduleId } = req.body;
 
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(res.locals?.user.userId);
 
     if (!user) {
       return backResponse.clientError(res, {
