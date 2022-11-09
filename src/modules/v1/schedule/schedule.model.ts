@@ -1,15 +1,9 @@
+import { CalendarInput } from "@type/interfaces/ICalendar";
 import mongoose from "mongoose";
-import { User } from "../users/user.model";
 
-export interface ScheduleDocument extends mongoose.Document {
-  owner: string;
-  monday: string;
-  tuesday: string;
-  wednesday: string;
-  thursday: string;
-  friday: string;
-  saturday: string;
-  sunday: string;
+export interface ScheduleDocument extends CalendarInput, mongoose.Document {
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const scheduleSchema = new mongoose.Schema(
@@ -46,6 +40,7 @@ const scheduleSchema = new mongoose.Schema(
     sunday: {
       type: [Object],
       required: false,
+      default: null,
     },
   },
   {
