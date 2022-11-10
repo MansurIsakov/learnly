@@ -76,6 +76,7 @@ export const addCoreModules = async (
       return {
         moduleId: module.id,
         moduleName: module.moduleName,
+        type: module.type,
       };
     });
 
