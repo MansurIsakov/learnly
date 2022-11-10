@@ -6,6 +6,14 @@ export interface ModuleInput {
   credits: number;
   type: string;
   teachers: [];
-  classes: object[];
+  classes: IClass[];
   courses: string[];
+}
+export interface IClass {
+  time: string;
+  day: string;
+  venue: string;
+  tutor: string;
+  type: string;
+  group: string[];
 }

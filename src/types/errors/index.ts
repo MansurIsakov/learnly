@@ -46,6 +46,9 @@ export enum ModuleErrorCode {
 export enum ScheduleErrorCode {
   SCHEDULE_NOT_FOUND = "SCHEDULE_NOT_FOUND",
   SCHEDULE_ALREADY_EXISTS = "SCHEDULE_ALREADY_EXISTS",
+  NO_CLASSES_FOUND = "NO_CLASSES_FOUND",
+  CLASS_COLLISION = "CLASS_COLLISION",
+  INVALID_DATE = "INVALID_DATE",
 }
 
 export enum DocumentCode {
