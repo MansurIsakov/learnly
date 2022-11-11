@@ -51,15 +51,7 @@ export const signUp = async (
   next: NextFunction
 ) => {
   try {
-    let {
-      firstName,
-      lastName,
-      email,
-      password,
-      passwordConfirm,
-      course,
-      level,
-    } = req.body;
+    let { firstName, lastName, email, level } = req.body;
 
     firstName = firstName?.trim();
     lastName = lastName?.trim();

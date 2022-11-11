@@ -13,6 +13,13 @@ export const getSchedule: Controller = async (
   _: NextFunction
 ) => {
   try {
+    if (!res.locals.user.id) {
+      return backResponse.clientError(res, {
+        message: `No schedule found with that ID`,
+        code: 404,
+      });
+    }
+
     const user: any = await User.findById(res.locals.user.id).populate({
       path: "schedule",
       select: "_id",
@@ -27,17 +34,21 @@ export const getSchedule: Controller = async (
 
     const scheduleId = user.schedule[0].id;
 
+    console.log(1);
+
     let schedule = await Schedule.findById(scheduleId);
 
-    if (!scheduleId) {
+    backResponse.ok(res, { results: schedule });
+  } catch (error: any) {
+    if (
+      error.message === "Cannot read properties of undefined (reading 'id')"
+    ) {
       return backResponse.clientError(res, {
-        message: `No schedule found with that ID`,
-        code: 404,
+        message: "The schedule for this user does not exist",
+        code: ScheduleErrorCode.SCHEDULE_NOT_FOUND,
       });
     }
 
-    backResponse.ok(res, { results: schedule });
-  } catch (error) {
     throw new ClientErrorException({
       message: "Failed to find schedule",
     });
@@ -65,6 +76,8 @@ export const createSchedule: Controller = async (
       owner: user?.id,
       days,
     });
+
+    res.locals.user.scheduleId = schedule.id;
 
     backResponse.created(res, { results: schedule });
   } catch (error: any) {
@@ -153,9 +166,6 @@ export const updateSchedule: Controller = async (
           ) {
             hasCollisions = true;
           }
-
-          console.log("ITEM TIME: " + item.time);
-          console.log("MODULE TIME: " + moduleClass.time);
         });
       });
 
@@ -253,16 +263,91 @@ export const deleteSchedule: Controller = async (
 
     const scheduleId = user.schedule[0].id;
 
-    const schedule = await Schedule.findByIdAndDelete(scheduleId);
-
-    if (!schedule) {
+    if (!scheduleId) {
       return backResponse.clientError(res, {
         message: `No schedule found with that ID`,
         code: 404,
       });
     }
 
-    backResponse.deleted(res);
+    let userSchedule = await Schedule.findById<CalendarInput>(scheduleId);
+
+    if (!userSchedule) {
+      return backResponse.clientError(res, {
+        message: `No schedule found with that ID`,
+        code: 404,
+      });
+    }
+
+    const moduleClass: IClass = req.body;
+
+    // Empty Body
+    if (Object.keys(req.body).length === 0) {
+      return backResponse.clientError(res, {
+        message: "You cannot submit an empty schedule",
+        code: ScheduleErrorCode.NO_CLASSES_FOUND,
+      });
+    }
+
+    const arr = userSchedule.days;
+
+    let moduleClassday;
+
+    switch (moduleClass.day) {
+      case "monday":
+        moduleClassday = 0;
+        break;
+      case "tuesday":
+        moduleClassday = 1;
+        break;
+      case "wednesday":
+        moduleClassday = 2;
+        break;
+      case "thursday":
+        moduleClassday = 3;
+        break;
+      case "friday":
+        moduleClassday = 4;
+        break;
+      case "saturday":
+        moduleClassday = 5;
+        break;
+      case "sunday":
+        moduleClassday = 6;
+        break;
+      default:
+        moduleClassday = 0;
+        break;
+    }
+
+    if (userSchedule.days[moduleClassday]) {
+      const classExists = userSchedule.days[moduleClassday].some(
+        (classData) =>
+          classData.time === moduleClass?.time &&
+          classData.moduleName === moduleClass?.moduleName
+      );
+      if (!classExists) {
+        return backResponse.clientError(res, {
+          message: "User does not have this class",
+          code: ScheduleErrorCode.USER_DOES_NOT_HAVE_CLASS,
+        });
+      }
+    }
+
+    userSchedule.days[moduleClassday] = userSchedule.days[
+      moduleClassday
+    ].filter((item) => item.time !== moduleClass.time);
+
+    const schedule = await Schedule.findByIdAndUpdate(
+      scheduleId,
+      userSchedule,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    backResponse.ok(res, { results: schedule });
   } catch (error) {
     throw new ClientErrorException({ message: "Failed to delete user" });
   }
