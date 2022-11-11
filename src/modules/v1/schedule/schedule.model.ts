@@ -10,37 +10,41 @@ const scheduleSchema = new mongoose.Schema(
   {
     owner: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
       required: [true, "Account must belong to an user"],
     },
-    monday: {
+    days: {
       type: [Object],
-      required: false,
-    },
-    tuesday: {
-      type: [Object],
-      required: false,
-    },
-    wednesday: {
-      type: [Object],
-      required: false,
-    },
-    thursday: {
-      type: [Object],
-      required: false,
-    },
-    friday: {
-      type: [Object],
-      required: false,
-    },
-    saturday: {
-      type: [Object],
-      required: false,
-    },
-    sunday: {
-      type: [Object],
-      required: false,
-      default: null,
+      default: [
+        {
+          type: [Object],
+          required: false,
+        },
+        {
+          type: [Object],
+          required: false,
+        },
+        {
+          type: [Object],
+          required: false,
+        },
+        {
+          type: [Object],
+          required: false,
+        },
+        {
+          type: [Object],
+          required: false,
+        },
+        {
+          type: [Object],
+          required: false,
+        },
+        {
+          type: [Object],
+          required: false,
+          default: null,
+        },
+      ],
     },
   },
   {
@@ -52,12 +56,11 @@ const scheduleSchema = new mongoose.Schema(
 
 scheduleSchema.index({ owner: 1 }, { unique: true });
 
-scheduleSchema.pre(/^find/, function (next): void {
-  this.populate({
-    path: "owner",
-    select: "_id",
-  });
-  next();
+scheduleSchema.virtual("user", {
+  ref: "User",
+  foreignField: "_id",
+  localField: "owner",
+  justOne: true,
 });
 
 export const Schedule = mongoose.model<ScheduleDocument>(

@@ -21,7 +21,10 @@ export const deleteUser = deleteOne(User);
 // GET User
 export const getUser = async (req: Request, res: Response, _: NextFunction) => {
   try {
-    const user = await User.findById(req.params.id).populate("schedule");
+    const user = await User.findById(req.params.id).populate({
+      path: "schedule",
+      select: "id",
+    });
 
     if (!user) {
       return backResponse.clientError(res, {

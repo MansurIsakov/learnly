@@ -16,4 +16,5 @@ export interface IClass {
   tutor: string;
   type: string;
   group: string[];
+  moduleName: string;
 }

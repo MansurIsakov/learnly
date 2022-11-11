@@ -25,6 +25,7 @@ export interface UserInput {
     moduleName: string;
   }[];
   credits: number;
+  schedule: string;
 }
 
 export interface IUserRequest extends Request {

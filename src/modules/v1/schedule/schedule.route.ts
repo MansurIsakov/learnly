@@ -12,11 +12,6 @@ const router: Router = Router();
 router
   .route("/")
   .post(protect, scheduleController.createSchedule)
-  .get(protect, scheduleController.getAllSchedules);
-
-// Schedule by ID
-router
-  .route("/:id")
   .get(protect, scheduleController.getSchedule)
   .put(protect, scheduleController.updateSchedule)
   .delete(protect, scheduleController.deleteSchedule);
