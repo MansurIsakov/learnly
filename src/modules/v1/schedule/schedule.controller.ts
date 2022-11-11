@@ -34,8 +34,6 @@ export const getSchedule: Controller = async (
 
     const scheduleId = user.schedule[0].id;
 
-    console.log(1);
-
     let schedule = await Schedule.findById(scheduleId);
 
     backResponse.ok(res, { results: schedule });
@@ -214,6 +212,13 @@ export const updateSchedule: Controller = async (
 
     userSchedule.days[moduleClassday].push(moduleClass);
 
+    // Sort the array
+    userSchedule.days = userSchedule.days.map((day) => {
+      return day.sort((a, b) => {
+        return Number(a.time) - Number(b.time);
+      });
+    });
+
     const schedule = await Schedule.findByIdAndUpdate(
       scheduleId,
       userSchedule,
@@ -223,7 +228,7 @@ export const updateSchedule: Controller = async (
       }
     );
 
-    backResponse.created(res, { results: schedule });
+    backResponse.created(res, { results: userSchedule });
   } catch (error: any) {
     if (error.code === 11000) {
       return backResponse.clientError(res, {
@@ -288,8 +293,6 @@ export const deleteSchedule: Controller = async (
         code: ScheduleErrorCode.NO_CLASSES_FOUND,
       });
     }
-
-    const arr = userSchedule.days;
 
     let moduleClassday;
 

@@ -34,8 +34,6 @@ export const getUser = async (req: Request, res: Response, _: NextFunction) => {
     }
     backResponse.ok(res, { results: user });
   } catch (error) {
-    console.log(1);
-
     throw new ClientErrorException({
       message: "Failed to find user",
     });
