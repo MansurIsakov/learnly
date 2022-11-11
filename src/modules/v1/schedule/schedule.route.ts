@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { protect } from "../auth/auth.controller";
 import * as scheduleController from "./schedule.controller";
 
 const router: Router = Router();
@@ -10,7 +11,9 @@ const router: Router = Router();
 // Schedule
 router
   .route("/")
-  .post(scheduleController.createSchedule)
-  .get(scheduleController.getAllSchedules);
+  .post(protect, scheduleController.createSchedule)
+  .get(protect, scheduleController.getSchedule)
+  .put(protect, scheduleController.updateSchedule)
+  .delete(protect, scheduleController.deleteSchedule);
 
 export default router;

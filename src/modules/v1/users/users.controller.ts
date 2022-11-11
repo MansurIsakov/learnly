@@ -21,7 +21,10 @@ export const deleteUser = deleteOne(User);
 // GET User
 export const getUser = async (req: Request, res: Response, _: NextFunction) => {
   try {
-    const user = await User.findById(req.params.id).populate("schedule");
+    const user = await User.findById(req.params.id).populate({
+      path: "schedule",
+      select: "id",
+    });
 
     if (!user) {
       return backResponse.clientError(res, {
@@ -31,8 +34,6 @@ export const getUser = async (req: Request, res: Response, _: NextFunction) => {
     }
     backResponse.ok(res, { results: user });
   } catch (error) {
-    console.log(1);
-
     throw new ClientErrorException({
       message: "Failed to find user",
     });
@@ -76,6 +77,7 @@ export const addCoreModules = async (
       return {
         moduleId: module.id,
         moduleName: module.moduleName,
+        type: module.type,
       };
     });
 

@@ -90,6 +90,10 @@ const userSchema = new mongoose.Schema(
       default: true,
       select: false,
     },
+    scheduleId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Schedule",
+    },
   },
   {
     timestamps: true,
@@ -100,6 +104,7 @@ const userSchema = new mongoose.Schema(
 
 userSchema.virtual("schedule", {
   ref: "Schedule",
+  select: "id",
   localField: "_id",
   foreignField: "owner",
 });

@@ -2,10 +2,15 @@ import express from "express";
 
 import { env } from "@env";
 import { loader, logger } from "@lib";
-import { errorResponse } from "@type";
 import mongoose from "mongoose";
 
 const app = express();
+
+process.on("uncaughtException", (err) => {
+  logger.error("Uncaught exception", err);
+
+  process.exit(1);
+});
 
 (async () => {
   await loader({ expressApp: app });
@@ -27,4 +32,12 @@ const server = app.listen(env.PORT, async () => {
   );
 
   await connect();
+});
+
+process.on("unhandledRejection", (err: any) => {
+  logger.error("Uncaught exception", err);
+
+  server.close(() => {
+    process.exit(1);
+  });
 });
