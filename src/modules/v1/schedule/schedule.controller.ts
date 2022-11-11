@@ -59,72 +59,11 @@ export const createSchedule: Controller = async (
       });
     }
 
-    const days: any[] = req.body.days;
-
-    for (const day in days) {
-      // Empty Schedule
-
-      const arr = days[day];
-
-      if (days.every((item) => item.length === 0)) {
-        return backResponse.clientError(res, {
-          message: "You cannot submit an empty schedule",
-          code: ScheduleErrorCode.NO_CLASSES_FOUND,
-        });
-      }
-
-      // Check for duplicates time && time collisions
-      let hasDuplicate = false;
-      let hasCollisions = false;
-      let hasInvalidDate = false;
-
-      for (let i = 0; i < arr.length; i++) {
-        for (let j = i + 1; j < arr.length; j++) {
-          if (arr[i].day !== arr[j].day) {
-            hasInvalidDate = true;
-            break;
-          }
-
-          if (arr[i].time === arr[j].time) {
-            hasDuplicate = true;
-            break;
-          }
-
-          if (
-            +arr[i].time - +arr[j].time === 1 ||
-            +arr[j].time - +arr[i].time === -1
-          ) {
-            hasCollisions = true;
-            break;
-          }
-        }
-      }
-
-      if (hasDuplicate) {
-        return backResponse.clientError(res, {
-          message: "You cannot submit a schedule with duplicate classes",
-          code: ScheduleErrorCode.NO_CLASSES_FOUND,
-        });
-      }
-
-      if (hasCollisions) {
-        return backResponse.clientError(res, {
-          message: "You have time collisions in your schedule",
-          code: ScheduleErrorCode.CLASS_COLLISION,
-        });
-      }
-
-      if (hasInvalidDate) {
-        return backResponse.clientError(res, {
-          message: "You have invalid dates in your schedule",
-          code: ScheduleErrorCode.INVALID_DATE,
-        });
-      }
-    }
+    const days = [[], [], [], [], [], [], []];
 
     const schedule = await Schedule.create({
       owner: user?.id,
-      ...req.body,
+      days,
     });
 
     backResponse.created(res, { results: schedule });
@@ -167,72 +106,113 @@ export const updateSchedule: Controller = async (
 
     const scheduleId = user.schedule[0].id;
 
-    const days: any[] = { ...req.body };
+    if (!scheduleId) {
+      return backResponse.clientError(res, {
+        message: `No schedule found with that ID`,
+        code: 404,
+      });
+    }
 
-    for (const day in days) {
-      // Empty Schedule
-      const arr = days[day];
+    const userSchedule = await Schedule.findById<CalendarInput>(scheduleId);
 
-      if (arr.some((item: CalendarInput) => item === null)) {
-        return backResponse.clientError(res, {
-          message: "You cannot submit an empty schedule",
-          code: ScheduleErrorCode.NO_CLASSES_FOUND,
-        });
-      }
+    if (!userSchedule) {
+      return backResponse.clientError(res, {
+        message: `No schedule found with that ID`,
+        code: 404,
+      });
+    }
 
+    const moduleClass: IClass = req.body;
+
+    // Empty Body
+    if (Object.keys(req.body).length === 0) {
+      return backResponse.clientError(res, {
+        message: "You cannot submit an empty schedule",
+        code: ScheduleErrorCode.NO_CLASSES_FOUND,
+      });
+    }
+
+    const arr = userSchedule.days;
+
+    for (const day of arr) {
       // Check for duplicates time && time collisions
       let hasDuplicate = false;
       let hasCollisions = false;
-      let hasInvalidDate = false;
 
-      for (let i = 0; i < arr.length; i++) {
-        for (let j = i + 1; j < arr.length; j++) {
-          if (arr[i].day === arr[j].day) {
-            hasInvalidDate = true;
-            break;
-          }
-
-          if (arr[i].time === arr[j].time) {
+      arr.forEach((day) => {
+        day.forEach((item) => {
+          if (item.day === moduleClass.day && item.time === moduleClass.time) {
             hasDuplicate = true;
-            break;
           }
 
           if (
-            +arr[i].time - +arr[j].time === 1 ||
-            +arr[j].time - +arr[i].time === -1
+            (item.day === moduleClass.day &&
+              Number(moduleClass.time) - Number(item.time) === 1) ||
+            (item.day === moduleClass.day &&
+              Number(moduleClass.time) - Number(item.time) === -1)
           ) {
             hasCollisions = true;
-            break;
           }
-        }
-      }
+
+          console.log("ITEM TIME: " + item.time);
+          console.log("MODULE TIME: " + moduleClass.time);
+        });
+      });
 
       if (hasDuplicate) {
         return backResponse.clientError(res, {
-          message: "You cannot submit a schedule with duplicate classes",
+          message: "You cannot add classes with the same time",
           code: ScheduleErrorCode.NO_CLASSES_FOUND,
         });
       }
-
       if (hasCollisions) {
         return backResponse.clientError(res, {
           message: "You have time collisions in your schedule",
           code: ScheduleErrorCode.CLASS_COLLISION,
         });
       }
-
-      if (hasInvalidDate) {
-        return backResponse.clientError(res, {
-          message: "You have invalid dates in your schedule",
-          code: ScheduleErrorCode.INVALID_DATE,
-        });
-      }
     }
 
-    const schedule = await Schedule.findByIdAndUpdate(scheduleId, ...req.body, {
-      new: true,
-      runValidators: true,
-    });
+    let moduleClassday;
+
+    switch (moduleClass.day) {
+      case "monday":
+        moduleClassday = 0;
+        break;
+      case "tuesday":
+        moduleClassday = 1;
+        break;
+      case "wednesday":
+        moduleClassday = 2;
+        break;
+      case "thursday":
+        moduleClassday = 3;
+        break;
+      case "friday":
+        moduleClassday = 4;
+        break;
+      case "saturday":
+        moduleClassday = 5;
+        break;
+      case "sunday":
+        moduleClassday = 6;
+        break;
+      default:
+        moduleClassday = 0;
+        break;
+    }
+
+    userSchedule.days[moduleClassday].push(moduleClass);
+
+    const schedule = await Schedule.findByIdAndUpdate(
+      scheduleId,
+      userSchedule,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
     backResponse.created(res, { results: schedule });
   } catch (error: any) {
     if (error.code === 11000) {
