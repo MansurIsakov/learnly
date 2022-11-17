@@ -6,13 +6,12 @@ import {
 import { Request, Response, NextFunction } from "express";
 
 import { User } from "./user.model";
-import { backResponse, Req } from "../../../types";
+import { backResponse } from "../../../types";
 import { ModuleErrorCode, UserErrorCode } from "../../../types/errors";
 import { ClientErrorException } from "@common/utils/appError";
 import { UserModule } from "@type/interfaces/IUser";
 import { Module } from "../modules/module.model";
 import { env } from "@env";
-import { ModuleInput } from "@type/interfaces/IModule";
 
 export const getAllUsers = getAll(User);
 export const updateUser = updateOne(User);
