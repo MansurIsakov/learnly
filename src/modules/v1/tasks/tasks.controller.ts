@@ -5,7 +5,6 @@ import { Request, Response, NextFunction } from "express";
 import { User } from "../users/user.model";
 import mongoose from "mongoose";
 import { Task } from "./tasks.model";
-import { TaskStatus } from "@type/task";
 
 export const getTasks: Controller = async (
   req: Request,
@@ -62,7 +61,7 @@ export const addTask: Controller = async (
     taskData.tasks.push({
       id: taskId,
       ...req.body,
-      taskStatus: TaskStatus.NEW,
+      isCompleted: false,
     });
 
     await taskData.save();
