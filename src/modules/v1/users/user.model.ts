@@ -116,6 +116,13 @@ userSchema.virtual("exam", {
   foreignField: "owner",
 });
 
+userSchema.virtual("task", {
+  ref: "Task",
+  select: "id",
+  localField: "_id",
+  foreignField: "owner",
+});
+
 userSchema.pre("save", async function (next) {
   let user = this as UserDocument;
 

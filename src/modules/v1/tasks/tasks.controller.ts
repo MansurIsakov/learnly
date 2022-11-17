@@ -1,12 +1,13 @@
 import { ClientErrorException } from "@common/utils/appError";
-import { backResponse, UserErrorCode, ExamErrorCode } from "@type";
+import { backResponse, UserErrorCode, TaskErrorCode } from "@type";
 import { Controller } from "@type/controller";
 import { Request, Response, NextFunction } from "express";
 import { User } from "../users/user.model";
-import { Exam } from "./exams.model";
 import mongoose from "mongoose";
+import { Task } from "./tasks.model";
+import { TaskStatus } from "@type/task";
 
-export const getExams: Controller = async (
+export const getTasks: Controller = async (
   req: Request,
   res: Response,
   _: NextFunction
@@ -21,13 +22,13 @@ export const getExams: Controller = async (
       });
     }
 
-    let exam = await Exam.findOne({ owner: user.id });
+    let taskData = await Task.findOne({ owner: user.id });
 
-    if (!exam) {
-      exam = await Exam.create({ owner: user.id });
+    if (!taskData) {
+      taskData = await Task.create({ owner: user.id });
     }
 
-    backResponse.ok(res, { results: exam.exams });
+    backResponse.ok(res, { results: taskData.tasks });
   } catch (error: any) {
     throw new ClientErrorException({
       message: "Failed to find tasks",
@@ -35,7 +36,7 @@ export const getExams: Controller = async (
   }
 };
 
-export const addExam: Controller = async (
+export const addTask: Controller = async (
   req: Request,
   res: Response,
   _: NextFunction
@@ -50,30 +51,31 @@ export const addExam: Controller = async (
       });
     }
 
-    let exam = await Exam.findOne({ owner: user.id });
+    let taskData = await Task.findOne({ owner: user.id });
 
-    if (!exam) {
-      exam = await Exam.create({ owner: user.id });
+    if (!taskData) {
+      taskData = await Task.create({ owner: user.id });
     }
 
-    const examId = new mongoose.Types.ObjectId();
+    const taskId = new mongoose.Types.ObjectId();
 
-    exam.exams.push({
-      id: examId,
+    taskData.tasks.push({
+      id: taskId,
       ...req.body,
+      taskStatus: TaskStatus.NEW,
     });
 
-    await exam.save();
+    await taskData.save();
 
-    backResponse.created(res, { results: exam.exams });
+    backResponse.created(res, { results: taskData.tasks });
   } catch (error: any) {
     throw new ClientErrorException({
-      message: "Failed to add exam",
+      message: "Failed to add task",
     });
   }
 };
 
-export const updateExam: Controller = async (
+export const updateTask: Controller = async (
   req: Request,
   res: Response,
   _: NextFunction
@@ -86,42 +88,42 @@ export const updateExam: Controller = async (
         code: UserErrorCode.USER_NOT_FOUND,
       });
     }
-    const exam = await Exam.findOne({ owner: user.id });
+    const taskData = await Task.findOne({ owner: user.id });
 
-    if (!exam) {
+    if (!taskData) {
       return backResponse.clientError(res, {
-        message: "No exam found with that ID",
-        code: ExamErrorCode.EXAM_NOT_FOUND,
+        message: "User does not have any tasks",
+        code: TaskErrorCode.TASK_NOT_FOUND,
       });
     }
 
-    const examIndex = exam.exams.findIndex(
-      (exam: any) => exam.id == req.params.id
+    const taskIndex = taskData.tasks.findIndex(
+      (task: any) => task.id == req.params.id
     );
 
-    if (examIndex === -1) {
+    if (taskIndex === -1) {
       return backResponse.clientError(res, {
-        message: "No exam found with that ID",
-        code: ExamErrorCode.EXAM_NOT_FOUND,
+        message: "No task found with that ID",
+        code: TaskErrorCode.TASK_NOT_FOUND,
       });
     }
 
-    exam.exams[examIndex] = {
-      id: exam.exams[examIndex].id,
+    taskData.tasks[taskIndex] = {
+      id: taskData.tasks[taskIndex].id,
       ...req.body,
     };
 
-    await exam.save();
+    await taskData.save();
 
-    backResponse.ok(res, { results: exam.exams });
+    backResponse.ok(res, { results: taskData.tasks });
   } catch (error: any) {
     throw new ClientErrorException({
-      message: "Failed to add exam",
+      message: "Failed to add task",
     });
   }
 };
 
-export const deleteExam: Controller = async (
+export const deleteTask: Controller = async (
   req: Request,
   res: Response,
   _: NextFunction
@@ -136,41 +138,34 @@ export const deleteExam: Controller = async (
       });
     }
 
-    const exam = await Exam.findOne({ owner: user.id });
+    const taskData = await Task.findOne({ owner: user.id });
 
-    if (!exam) {
+    if (!taskData) {
       return backResponse.clientError(res, {
-        message: "No exam found with that ID",
-        code: ExamErrorCode.EXAM_NOT_FOUND,
+        message: "User does not have any tasks",
+        code: TaskErrorCode.TASK_NOT_FOUND,
       });
     }
 
-    const examId = req.params.id;
+    const taskId = req.params.id;
 
-    const isExamIdValid = exam.exams.some((exam: any) => exam.id == examId);
+    const isTaskIdValid = taskData.tasks.some((task: any) => task.id == taskId);
 
-    if (!isExamIdValid) {
+    if (!isTaskIdValid) {
       return backResponse.clientError(res, {
-        message: "No exam found with that ID",
-        code: ExamErrorCode.EXAM_NOT_FOUND,
+        message: "No task found with that ID",
+        code: TaskErrorCode.TASK_NOT_FOUND,
       });
     }
 
-    exam.exams = exam.exams.filter((exam: any) => exam.id != examId);
+    taskData.tasks = taskData.tasks.filter((task: any) => task.id != taskId);
 
-    if (!exam) {
-      return backResponse.clientError(res, {
-        message: "No exam found with that ID",
-        code: ExamErrorCode.EXAM_NOT_FOUND,
-      });
-    }
-
-    await exam.save();
+    await taskData.save();
 
     backResponse.deleted(res);
   } catch (error: any) {
     throw new ClientErrorException({
-      message: "Failed to delete exam",
+      message: "Failed to delete task",
     });
   }
 };
