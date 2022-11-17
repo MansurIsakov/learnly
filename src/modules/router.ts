@@ -6,6 +6,7 @@ import teachersRouter from "./v1/teachers/teachers.route";
 import modulesRouter from "./v1/modules/modules.route";
 import scheduleRouter from "./v1/schedule/schedule.route";
 import userModulesRouter from "./v1/users/userModules.route";
+import examsRouter from "./v1/exams/exams.route";
 
 const router = Router();
 
@@ -19,6 +20,7 @@ router.use("/teachers", teachersRouter);
 router.use("/modules", modulesRouter);
 router.use("/schedule", scheduleRouter);
 router.use("/user/modules", userModulesRouter);
+router.use("/exams", examsRouter);
 
 router.get("/", (req: Request, res: Response, next: NextFunction) => {
   res.status(200).json({
