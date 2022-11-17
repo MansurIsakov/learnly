@@ -61,6 +61,7 @@ export const addExam: Controller = async (
     exam.exams.push({
       id: examId,
       ...req.body,
+      isPassed: false,
     });
 
     await exam.save();
