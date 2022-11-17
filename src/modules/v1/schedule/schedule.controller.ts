@@ -32,9 +32,7 @@ export const getSchedule: Controller = async (
       });
     }
 
-    const scheduleId = user.schedule[0].id;
-
-    let schedule = await Schedule.findById(scheduleId);
+    let schedule = await Schedule.findOne({ owner: user.id });
 
     backResponse.ok(res, { results: schedule });
   } catch (error: any) {
